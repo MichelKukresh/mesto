@@ -2,4 +2,5 @@
   display: flex;
   font-family: 'Inter', Arial, sans-serif;
   align-items: center;
+  justify-content: space-between;
 }
