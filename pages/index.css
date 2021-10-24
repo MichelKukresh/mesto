@@ -27,4 +27,10 @@
 @import url("../blocks/elements/elements.css");
 @import url("../blocks/elements/__item/elements__item.css");
 @import url("../blocks/elements/__item-list/elements__item-list.css");
+@import url("../blocks/elements/__img-hart/elements__txt-hart.css");
+@import url("../blocks/elements/__cut-text/elements__cut-text.css");
+@import url("../blocks/elements/__hart/elements__hart.css");
+
+@import url("../blocks/footer/footer.css");
+@import url("../blocks/footer/__copyright/footer__copyright.css");
 

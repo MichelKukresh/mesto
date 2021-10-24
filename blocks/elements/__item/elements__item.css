@@ -1,7 +1,8 @@
 .elements__item {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(284px, 1fr));
-  row-gap: 17px;
-  column-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  row-gap: 20px;
+  column-gap: 17px;
   list-style-type: none;
+  padding: 0;
 }
