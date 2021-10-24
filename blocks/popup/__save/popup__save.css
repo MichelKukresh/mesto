@@ -1,0 +1,22 @@
+.popup__save {
+  width: 358px;
+  height: 50px;
+  background: #000000;
+  border-radius: 2px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  margin-top: 48px;
+}
+
+@media (max-width: 540px) {
+  .popup__save {
+    width: 238px;
+    height: 46px;
+  }
+}

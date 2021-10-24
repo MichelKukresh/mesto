@@ -5,4 +5,17 @@
   column-gap: 17px;
   list-style-type: none;
   padding: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 940px) {
+  .elements__item {
+    max-width: 581px;
+  }
+}
+
+@media (max-width: 650px) {
+  .elements__item {
+    max-width: 500px;
+  }
 }

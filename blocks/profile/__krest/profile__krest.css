@@ -2,3 +2,15 @@
   border: solid white 1px;
   padding: 14px 64px 14px 64px;
 }
+
+@media (max-width: 690px) {
+  .profile__krest {
+    border-top-width: 2px;
+    margin-top: 33px;
+    padding-bottom: 13px;
+    padding-right: 128px;
+    padding-top: 17px;
+    width: 16px;
+    padding-left: 134px;
+  }
+}

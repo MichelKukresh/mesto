@@ -9,3 +9,9 @@
   margin: 0 auto;
   padding: 45px 0 60px;
 }
+
+@media (max-width: 650px) {
+  .page__container {
+    padding-top: 28px;
+  }
+}

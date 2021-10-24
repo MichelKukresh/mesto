@@ -1,0 +1,12 @@
+.profile__open-popup {
+  border: solid white 1px;
+  padding: 7px;
+}
+
+@media (max-width: 690px) {
+  .profile__open-popup {
+    width: 7.5px;
+    height: 7.5px;
+    padding: 5.25px;
+  }
+}

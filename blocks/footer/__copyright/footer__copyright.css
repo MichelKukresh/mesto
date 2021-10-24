@@ -2,3 +2,21 @@
   color: #545454;
   margin: 0;
 }
+
+@media (max-width: 940px) {
+  .footer__copyright {
+    max-width: 581px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .footer__copyright {
+    max-width: 282px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
