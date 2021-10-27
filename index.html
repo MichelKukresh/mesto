@@ -18,9 +18,8 @@
           <div class="profile__image-text-pen">
             <img class="profile__image" src="images/custo.jpg" />
             <div class="profile__text-pen">
-              <h1 class="profile__mane">
-                Жак-Ив Кусто <img class="profile__open-popup" src="images/pen.svg" />
-              </h1>
+              <div class="profile__text-pen-position">
+              <h1 class="profile__name">Жак-Ив Кусто</h1> <img class="profile__open-popup" src="images/pen.svg" /> </div>
               <p class="profile__profession">Исследователь океана</p>
             </div>
           </div>
@@ -76,20 +75,20 @@
       <footer class="footer section page__footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <section type="text" class="popup">
         <div class="popup__container">
           <button class="popup__close"></button>
-          <div class="popup__content">
+          <form class="popup__content form__element">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <p class="popup__name">Кусто</p>
+            <input  class="popup__name"> 
             <div class="header__line"></div>
-            <p class="popup__profession">
-              водолаз/p>
+            <input class="popup__profession">
               <div class="header__line"></div>
-              <button class="popup__save">Сохранить</button>
+              <input type='submit' class="popup__save"value="Сохранить">
             </p>
-          </div>
+          </form>
         </div>
+      </form>
       </section>
     </div>
     <script src="./scripts/index.js"></script>

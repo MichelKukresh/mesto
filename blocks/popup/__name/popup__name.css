@@ -6,4 +6,12 @@
   line-height: 17px;
   color: #000000;
   margin-bottom: 13px;
+  border: 0;
+}
+
+.popup__name:active, .popup__name:focus {
+  outline: none;
+}
+.popup__name::-moz-focus-inner {
+  border: 0;
 }

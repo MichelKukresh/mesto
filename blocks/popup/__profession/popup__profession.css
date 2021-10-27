@@ -6,4 +6,13 @@
   line-height: 17px;
   color: #000000;
   margin-bottom: 13px;
+  border: 0;
+}
+
+.popup__profession:active,
+.popup__profession:focus {
+  outline: none;
+}
+.popup__profession::-moz-focus-inner {
+  border: 0;
 }
