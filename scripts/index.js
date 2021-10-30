@@ -34,7 +34,7 @@ function formSubmitHandler(evt) {
   closePopup();
 }
 
-const popupSaveBotton = popupElement.querySelector(".form__element");
+const popupSaveBotton = popupElement.querySelector(".popup__content");
 console.log(popupSaveBotton);
 
 popupSaveBotton.addEventListener("submit", formSubmitHandler);
