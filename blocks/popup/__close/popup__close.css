@@ -6,7 +6,6 @@
   border: none; /**/
   transition: 0.3s; /**/
   position: absolute;
-  right: 50px;
   top: -32px;
   right: -32px;
 }
