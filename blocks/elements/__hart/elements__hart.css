@@ -1,3 +1,9 @@
 .elements__hart {
-  /*background-color: black;*/
+  border: none;
+  background-color:  #ffffff;
+  cursor: pointer;
+}
+
+.elements__hart:hover {
+  opacity: 0.5;
 }

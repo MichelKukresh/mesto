@@ -12,11 +12,16 @@
   color: #ffffff;
   border: none;
   margin-top: 48px;
+  cursor: pointer;
 }
 
 @media (max-width: 540px) {
   .popup__save {
     width: 238px;
     height: 46px;
+    margin-top: 21px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

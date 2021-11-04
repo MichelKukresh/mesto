@@ -20,16 +20,23 @@
             <div class="profile__text-pen">
               <div class="profile__text-pen-position">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <img
-                  class="profile__open-popup"
-                  src="images/pen.svg"
-                  alt="ручка"
-                />
+                <button class="profile__button-open" type="button">
+                  <img
+                    src="images/pen.svg"
+                    alt="ручка"
+                  /><!--class="profile__open-popup"-->
+                </button>
               </div>
               <p class="profile__profession">Исследователь океана</p>
             </div>
           </div>
-          <img class="profile__krest" src="images/krest.svg" alt="крестик" />
+
+          <button class="profile__button-add-site" type="button">
+            <img
+              src="images/krest.svg"
+              alt="крестик"
+            /><!--class="profile__open-popup"-->
+          </button>
         </section>
         <section class="section elements content__section">
           <ul class="elements__item">
@@ -37,46 +44,54 @@
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Карачаевск</h3>
-                <img
-                  class="elements__hart"
-                  src="images/hart.svg"
-                  alt="сердечко"
-                />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
             <li class="elements__item-list">
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Гора Эльбрус</h3>
-                <img src="images/hart.svg" alt="пейзаж" />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
             <li class="elements__item-list">
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Домбай</h3>
-                <img src="images/hart.svg" alt="пейзаж" />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
             <li class="elements__item-list">
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Гора Эльбрус</h3>
-                <img src="images/hart.svg" alt="сердечко" />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
             <li class="elements__item-list">
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Домбай</h3>
-                <img src="images/hart.svg" alt="сердечко" />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
             <li class="elements__item-list">
               <img src="images/karachaevsk.jpg" alt="карачаевск" />
               <div class="elements__txt-hart">
                 <h3 class="elements__cut-text">Карачаево-Черкеск</h3>
-                <img src="images/hart.svg" alt="сердечко" />
+                <button class="elements__hart" type="button">
+                  <img src="images/hart.svg" alt="сердечко" />
+                </button>
               </div>
             </li>
           </ul>
@@ -85,19 +100,20 @@
       <footer class="footer section page__footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <section class="popup">
+      <div class="popup">
         <div class="popup__container">
-          <button class="popup__close"></button>
-          <form class="popup__content">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input class="popup__name" />
-            <div class="popup__line"></div>
-            <input class="popup__profession" />
-            <div class="popup__line"></div>
-            <input type="submit" class="popup__save" value="Сохранить" />
+          <button class="popup__close" type="button"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__content" name="popup-content">            
+            <input name="text" class="popup__input pupup__input_text_name" />
+            <!--<div class="popup__line"></div>-->
+            <input name="text" class="popup__input pupup__input_text_profession" />
+            <!--<div class="popup__line"></div>-->
+            <button type="submit" class="popup__save">Сохранить</button>
+            <!--<input type="submit" class="popup__save" value="Сохранить" />-->
           </form>
         </div>
-      </section>
+      </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>

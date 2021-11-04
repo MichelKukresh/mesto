@@ -1,0 +1,23 @@
+.profile__button-open {
+  background-color: #000000;
+  border: solid white 1px;
+  margin-left: 20px;
+  margin-top: 11px;
+  background-size: cover;
+  height: 28px;
+  width: 28px;
+  padding-right: 1px;
+  padding-left: 1px;
+  cursor: pointer;
+}
+
+@media (max-width: 690px) {
+  .profile__button-open {
+    height: 28px;
+    width: 28px;
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-left: 11px;
+    margin-top: 8px;
+  }
+}

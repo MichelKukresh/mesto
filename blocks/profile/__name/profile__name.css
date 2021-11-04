@@ -1,5 +1,5 @@
 .profile__name {
-  font-family: Inter;
+  font-family: 'Inter', ‘Arial’, sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
@@ -13,8 +13,6 @@
 
 @media (max-width: 690px) {
   .profile__name {
-    font-style: normal;
-    font-weight: 500;
     font-size: 27px;
     line-height: 33px;
     margin-bottom: 7px;
