@@ -6,13 +6,13 @@ const profileOpenPopupButton = document.querySelector(".profile__button-open");
 
 let nameProfile = document.querySelector(".profile__name");
 
-let namePopup = document.querySelector(".pupup__input_text_name");
+let namePopup = document.querySelector("#popup-input-name");
 
 
 
 let professionProfile = document.querySelector(".profile__profession");
 
-let professionPopup = document.querySelector(".pupup__input_text_profession");
+let professionPopup = document.querySelector("#popup-input-profession");
 
 
 
