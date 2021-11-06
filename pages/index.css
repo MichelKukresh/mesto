@@ -9,7 +9,6 @@
 @import url("../blocks/page/__content/page__content.css");
 
 @import url("../blocks/header/header.css");
-@import url("../blocks/header/__line/header__line.css");
 @import url("../blocks/header/__logo/header__logo.css");
 
 @import url("../blocks/content/content.css");
@@ -22,7 +21,6 @@
 @import url("../blocks/profile/__name/profile__name.css");
 @import url("../blocks/profile/__profession/profile__profession.css");
 @import url("../blocks/profile/__image-text-pen/profile__image-text-pen.css");
-@import url("../blocks/profile/__open-popup/profile__open-popup.css");
 @import url("../blocks/profile/__text-pen-position/profile__text-pen-position.css");
 @import url('../blocks/profile/__button-open/profile__button-open.css');
 

@@ -2,22 +2,27 @@
   background-color: #000000;
   border: solid white 1px;
   margin-left: 20px;
-  margin-top: 11px;
-  background-size: cover;
-  height: 28px;
-  width: 28px;
+  height: 26px;
+  width: 26px;
   padding-right: 1px;
   padding-left: 1px;
   cursor: pointer;
+  background-image: url(../../../images/pen.svg);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @media (max-width: 690px) {
   .profile__button-open {
-    height: 28px;
-    width: 28px;
+    height: 22px;
+    width: 22px;
     padding-right: 1px;
     padding-left: 1px;
     margin-left: 11px;
-    margin-top: 8px;
+    background-image: url(../../../images/pen-mobile.svg);
   }
+}
+
+.profile__button-open:hover {
+  opacity: 0.8;
 }

@@ -20,8 +20,6 @@ const openPopup = function () {
   popupElement.classList.add("popup_is-open");
   namePopup.value = nameProfile.textContent;
   professionPopup.value = professionProfile.textContent;
-
-
 };
 
 const closePopup = function () {

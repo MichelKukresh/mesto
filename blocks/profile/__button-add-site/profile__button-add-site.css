@@ -16,3 +16,7 @@
     padding-left: 134px;
   }
 }
+
+.profile__button-add-site:hover {
+  opacity: 0.8;
+}

@@ -11,7 +11,6 @@
     <div class="page__container">
       <header class="header section page__header">
         <img class="header__logo" src="images/logo.svg" alt="логотип" />
-        <div class="header__line"></div>
       </header>
       <main class="content page__content">
         <section class="section profile content__section">
@@ -20,22 +19,18 @@
             <div class="profile__text-pen">
               <div class="profile__text-pen-position">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button class="profile__button-open" type="button">
-                  <img
-                    src="images/pen.svg"
-                    alt="ручка"
-                  /><!--class="profile__open-popup"-->
+                <button
+                  class="profile__button-open"
+                  aria-label="Open"
+                  type="button"
+                >
                 </button>
               </div>
               <p class="profile__profession">Исследователь океана</p>
             </div>
           </div>
-
           <button class="profile__button-add-site" type="button">
-            <img
-              src="images/krest.svg"
-              alt="крестик"
-            /><!--class="profile__open-popup"-->
+            <img src="images/krest.svg" alt="крестик" />
           </button>
         </section>
         <section class="section elements content__section">
@@ -104,11 +99,14 @@
         <div class="popup__container">
           <button class="popup__close" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__content" name="popup-content">            
+          <form class="popup__content" name="popup-content">
             <input name="text" class="popup__input" id="popup-input-name" />
-            <input name="text" class="popup__input" id="popup-input-profession"/>
+            <input
+              name="text"
+              class="popup__input"
+              id="popup-input-profession"
+            />
             <button type="submit" class="popup__save">Сохранить</button>
-            <!--<input type="submit" class="popup__save" value="Сохранить" />-->
           </form>
         </div>
       </div>

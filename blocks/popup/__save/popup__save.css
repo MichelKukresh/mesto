@@ -3,7 +3,7 @@
   height: 50px;
   background: #000000;
   border-radius: 2px;
-  font-family: Inter;
+  font-family: "Inter", ‘Arial’, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -11,7 +11,7 @@
   text-align: center;
   color: #ffffff;
   border: none;
-  margin-top: 48px;
+  margin-top: 21px;
   cursor: pointer;
 }
 
@@ -24,4 +24,8 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.popup__save:hover {
+  opacity: 0.8;
 }
