@@ -31,66 +31,31 @@
         </section>
         <section class="section elements content__section">
           <ul class="elements__item">
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Карачаевск</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко" />
-                </button>
-              </div>
-            </li>
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Гора Эльбрус</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко"/>
-                </button>
-              </div>
-            </li>
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Домбай</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко"/>
-                </button>
-              </div>
-            </li>
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Гора Эльбрус</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко"/>
-                </button>
-              </div>
-            </li>
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Домбай</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко"/>
-                </button>
-              </div>
-            </li>
-            <li class="elements__item-list">
-              <img src="images/karachaevsk.jpg" alt="карачаевск"/>
-              <div class="elements__txt-hart">
-                <h3 class="elements__cut-text">Карачаево-Черкеск</h3>
-                <button class="elements__hart" type="button">
-                  <img src="images/hart.svg" alt="сердечко"/>
-                </button>
-              </div>
-            </li>
+
+
+            <template class="item_template">
+              <li class="elements__item-list">
+                <button class="elements__dell" type="button"></button>
+                <img class="elements__image" id="image-element"  src="images/karachaevsk.jpg" alt="карачаевск" />
+               <!--Добавить класс в разметку--> 
+                <div class="elements__txt-hart">
+                  <h3 class="elements__cut-text">Карачаевск</h3>
+                  <button class="elements__hart" type="button">
+                    <!--<img src="images/hart.svg" alt="сердечко" />-->
+                  </button>
+                </div>
+              </li>
+            </template>
+  
+           
+
           </ul>
         </section>
       </main>
       <footer class="footer section page__footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
+
       <div class="popup">
         <div class="popup__container">
           <button class="popup__close" type="button"></button>
@@ -102,6 +67,19 @@
           </form>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card__container">
+          <button class="card__close" type="button"></button>
+          <h2 class="card__title">Новое место</h2>
+          <form class="card__content" name="card-content">
+            <input name="text" class="card__input" placeholder="Название" id="card-input-site" />
+            <input name="text" class="card__input" placeholder="Ссылка на название" id="card-input-src"/>
+            <button type="submit" class="card__save">Сохранить</button>
+          </form>
+        </div>
+  
+        </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
