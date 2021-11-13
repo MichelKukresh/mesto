@@ -9,3 +9,8 @@
     height: 28px;
     border: none;
 }
+
+.elements__dell:hover {
+    opacity: 0.8;
+  }
+  

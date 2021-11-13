@@ -1,9 +1,6 @@
-.size__container {  
-  background-color: white;
-  border-radius: 10px;
+.size__container {
   position: relative;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-  
+  /* box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15); */
 }
 
 @media (max-width: 540px) {
