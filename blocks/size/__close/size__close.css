@@ -1,0 +1,25 @@
+.size__close {
+  width: 32px;
+  height: 32px;
+  background: transparent center url(../../../images/Close-Icon.svg); /**/
+  background-size: auto; /**/
+  border: none; /**/
+  transition: 0.3s; /**/
+  position: absolute;
+  top: -38px;
+  right: -40px;
+  cursor: pointer;
+}
+
+@media (max-width: 540px) {
+  .card__close {
+    background: url(../../../images/Close-Icon-mobile.svg);
+    right: 0px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.card__close:hover {
+  opacity: 0.8;
+}

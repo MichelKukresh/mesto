@@ -54,3 +54,10 @@
 @import url("../blocks/card/__save/card__save.css");
 @import url("../blocks/card/__title/card__title.css");
 @import url("../blocks/card/_is-open/card_is-open.css");
+
+@import url("../blocks/size/size.css");
+@import url("../blocks/size/__close/size__close.css");
+@import url("../blocks/size/__container/size__container.css");
+@import url("../blocks/size/__image/size__image.css");
+@import url("../blocks/size/__title/size__title.css");
+@import url("../blocks/size/__open/size__open.css");
