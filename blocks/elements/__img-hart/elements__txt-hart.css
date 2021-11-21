@@ -2,5 +2,7 @@
   max-width: 246px;
   display: flex;
   justify-content: space-between;
-  margin: auto;  
+  margin-right: 30px;
+  margin-left: 21px;
+  min-height: 76px;
 }

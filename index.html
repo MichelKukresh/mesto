@@ -31,24 +31,13 @@
         </section>
         <section class="section elements content__section">
           <ul class="elements__item">
-            <template class="item_template">
-              <li class="elements__item-list">
-                <button class="elements__dell" type="button"></button>
-                <img class="elements__image" id="image-element"  src="images/karachaevsk.jpg" alt="карачаевск" />
-                  <div class="elements__txt-hart">
-                  <h3 class="elements__cut-text">Карачаевск</h3>
-                  <button class="elements__hart" type="button">
-                  </button>
-                </div>
-              </li>
-            </template>
           </ul>
         </section>
       </main>
       <footer class="footer section page__footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <div class="popup">
+      <div class="popup popup_type_edit-profile">
         <div class="popup__container">
           <button class="popup__close" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
@@ -59,25 +48,35 @@
           </form>
         </div>
       </div>
-      <div class="card">
-        <div class="card__container">
-          <button class="card__close" type="button"></button>
-          <h2 class="card__title">Новое место</h2>
-          <form class="card__content" name="card-content">
-            <input name="text" class="card__input" placeholder="Название" id="card-input-site" />
-            <input name="text" class="card__input" placeholder="Ссылка на название" id="card-input-src"/>
-            <button type="submit" class="card__save">Сохранить</button>
+      <div class="popup popup_type_new-card">
+        <div class="popup__container">
+          <button class="popup__close" type="button"></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__content" name="popup-card-content">
+            <input name="text" class="popup__input" placeholder="Название" id="popup-card-input-site" />
+            <input name="text" class="popup__input" placeholder="Ссылка на название" id="popup-card-input-src"/>
+            <button type="submit" class="popup__save">Сохранить</button>
           </form>
         </div>  
         </div>
-        <div class="size">
-          <div class="size__container">
-            <button class="size__close" type="button"></button>
-            <img class="size__image" id="size-image-element"  src="атрибут" alt="Место путешествия" />
-            <p class="size__title" id="size-txt-element">dddddd</p>
+        <div class="popup popup_type_image">
+          <div class="poppup__containe-image">
+            <button class="popup__close" type="button"></button>
+            <img class="poppup__image" id="size-image-element"  src="" alt="Место путешествия" />
+            <p class="popup__title-image" id="size-txt-element">dddddd</p>
           </div>
         </div>
     </div>
+    <template class="item_template">
+      <li class="elements__item-list">        
+        <img class="elements__image" id="image-element"  src="images/karachaevsk.jpg" alt="Новая картинка" />
+        <button class="elements__dell" type="button"></button>
+          <div class="elements__txt-hart">
+            <h3 class="elements__cut-text">Карачаевск</h3>
+            <button class="elements__hart" type="button"></button>
+          </div>
+      </li>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

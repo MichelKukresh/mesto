@@ -1,52 +1,5 @@
-const popupElement = document.querySelector(".popup");
 
-const popupCloseButtonElement = popupElement.querySelector(".popup__close");
-
-const profileOpenPopupButton = document.querySelector(".profile__button-open");
-
-let nameProfile = document.querySelector(".profile__name");
-
-let namePopup = document.querySelector("#popup-input-name");
-
-
-
-let professionProfile = document.querySelector(".profile__profession");
-
-let professionPopup = document.querySelector("#popup-input-profession");
-
-
-
-const openPopup = function () {
-  popupElement.classList.add("popup_is-open");
-  namePopup.value = nameProfile.textContent;
-  professionPopup.value = professionProfile.textContent;
-};
-
-const closePopup = function () {
-  popupElement.classList.remove("popup_is-open");
-};
-
-
-
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  nameProfile.textContent = namePopup.value;
-  professionProfile.textContent = professionPopup.value;
-  closePopup();
-}
-
-const popupSaveBotton = popupElement.querySelector(".popup__content");
-
-popupSaveBotton.addEventListener("submit", formSubmitHandler);
-profileOpenPopupButton.addEventListener("click", openPopup);
-popupCloseButtonElement.addEventListener("click", closePopup);
-
-
-
-
-
-
-
+//1.массив для 6ти карточек
 const initialCards = [
   {
     name: 'Архыз',
@@ -74,143 +27,161 @@ const initialCards = [
   }
 ];
 
-const itemTemplate = document.querySelector('.item_template'); //ищем саму форму - шаблон для новых карточек.
+//2 находим все попапы
+const popupProfile = document.querySelector(".popup_type_edit-profile");
+const popupCard = document.querySelector(".popup_type_new-card");
+const popupImage = document.querySelector(".popup_type_image");
 
+//3 все кнопки открытия
+const popupEditProfileOpen = document.querySelector('.profile__button-open');
+const popupNewCardOpen = document.querySelector('.profile__button-add-site');
+const popupImageOpen = document.querySelector('.elements__image');
+
+//4 все кнопки закрытия
+const popupEditProfileClose = popupProfile.querySelector('.popup__close');
+const popupNewCardClose = popupCard.querySelector('.popup__close');
+const popupImageClose = popupImage.querySelector('.popup__close');
+
+//5 ищем темплейт
+const itemTemplate = document.querySelector('.item_template'); //ищем саму форму - шаблон для новых карточек.
 const elementsItem = document.querySelector(".elements__item"); //!!!! Ищем куда вставим ТЕМПЛ!!!
 
-let editing = null;//Разобраться зачем????
+//6 функция закрытия и закрытия
+const togglePopup = function (popup) {
+  popup.classList.toggle("popup_is-open");
+};
 
-function renderCard() {
-  initialCards.forEach((item) => {
-    addCard(item.name, item.link);//.name, item.link);
-  });
+//7 вешаем слушатели на открытие попапов
+popupEditProfileOpen.addEventListener('click', function () {
+  togglePopup(popupProfile);
+  formProfile();
+});
 
-  //позже добавить слушатели корзина
-  //позже слушатель сердецко
+popupNewCardOpen.addEventListener('click', function () {
+  togglePopup(popupCard);
+});
+
+// popupImageOpen.addEventListener('click', function () {
+//   togglePopup(popupImage);
+// });
+popupEditProfileClose.addEventListener('click', function () {
+  togglePopup(popupProfile);
+});
+
+popupNewCardClose.addEventListener('click', function () {
+  togglePopup(popupCard);
+});
+
+popupImageClose.addEventListener('click', function () {
+  togglePopup(popupImage);
+});
+
+
+
+
+//8.1 заполнение карточки Профиля
+//8.1.1. находим все поля из карточки профиля
+let nameProfile = document.querySelector(".profile__name");
+let namePopup = document.querySelector("#popup-input-name");
+let professionProfile = document.querySelector(".profile__profession");
+let professionPopup = document.querySelector("#popup-input-profession");
+//8.1.2 добавляет значение в попап Профиль
+function formProfile () {
+  namePopup.value = nameProfile.textContent;
+  professionPopup.value = professionProfile.textContent;
+};
+//8.1.3 сохряняет значение в форме.
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  nameProfile.textContent = namePopup.value;
+  professionProfile.textContent = professionPopup.value;
+  togglePopup(popupProfile);
+}
+//8.1.4 найти кнопку сабмит и отправить на сервер
+const popupSaveForm = popupProfile.querySelector(".popup__content");
+popupSaveForm.addEventListener("submit", formSubmitHandler);
+
+//9 заполнить содержимое места в карточку
+//9.1 найти элементы для работы:
+//9.1.1 найти элементы на открытой карточке
+let siteCard = document.querySelector("#popup-card-input-site");
+let srcCard = document.querySelector("#popup-card-input-src");
+//9.1.2 найти элементы на сайте
+let siteElements = document.querySelector(".elements__cut-text");
+let srcElements = document.querySelector(".elements__image");
+//9.2 ищем ЭЛЕМЕН для сабмита
+const cardSaveForm = popupCard.querySelector(".popup__content"); 
+//9.2.1 вешаем сабмит на форму
+cardSaveForm.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
+//9.3 вносим данные в форму
+function hendleSubmit (evt)  {
+  evt.preventDefault();
+  const siteValue = siteCard.value; //1.Взять строку из инпута
+  const srcValue = srcCard.value; //2. Взять ссылку из инпута
+  createCard(siteValue, srcValue); //3 передать значение и отрисовать
+  togglePopup(popupCard);//закрыть карточку
+  siteCard.value = "";//очистить поле
+  srcCard.value = "";//очистить поле
 }
 
+// 10 функция отрисовки всех карт перебираем массив
+function renderCard() {
+  initialCards.forEach((item) => {
+    createCard(item.name, item.link);//.name, item.link);
+  });
+}
+
+// 11 функция добавления карт
 function addCard(name, link) {
-	//1. Создавать разметку
-
+  //11.1. Создавать разметку		
 	const htmlElement = itemTemplate.content.cloneNode(true);
-
-	//2. Заменять в разметке текст
-	htmlElement.querySelector('.elements__cut-text').innerText = name;
+	htmlElement.querySelector('.elements__cut-text').innerText = name; 
+  //11.2. Заменять в разметке текст
   htmlElement.querySelector('#image-element').src = link;
-
-
-	
-//организация лайка
+  //11.2.1 добавить ALT
+  htmlElement.querySelector('#image-element').alt = name;
+	//11.3 организация лайка
   htmlElement.querySelector(".elements__hart").addEventListener('click', function(evt) { 
   evt.target.classList.toggle("elements__hart_activ");
   });
 
-//2.5 Навесить события
-  setListener(htmlElement);
+  //11.4 ищем Удалить, вешаем слушатель => функция удаляет
+  htmlElement.querySelector(".elements__dell").addEventListener('click', elementDelete);
 
+  //11.5 организация открытия большой картинки
+  htmlElement.querySelector('#image-element').addEventListener('click', function (eve) {
+    togglePopup(popupImage);
+    //11.5.1 найти элементы в попапе
+    const sizeElementText = popupImage.querySelector("#size-txt-element");
+    const sizeElementImg = popupImage.querySelector("#size-image-element");
+    //11.5.2 находим элементы на сайте    
+    let sizeText = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+    let sizeImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+    //11.5.3 получаю нужные значения из полей
+    const text = sizeText.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
+    const img = sizeImg.querySelector("#image-element").src;
+    //11.5.4 подставляю нужные значения из полей
+    sizeElementText.innerText = text; //вставляю текст в ПОПАП. 
+    sizeElementImg.src = img;
+  });
 
-  //организация открытия большой картинки
-  htmlElement.querySelector('#image-element').addEventListener('click', openSize);
-
+  return htmlElement;
 
 	//3. Вставлять разметку в наш dom
-	elementsItem.prepend(htmlElement);//все передал на отрисовку вместе с данными
-
+	// elementsItem.prepend(htmlElement);//все передал на отрисовку вместе с данными
 }
 
-//2/5 продолжение удаления
-function setListener (htmlElement) {
-  htmlElement.querySelector(".elements__dell").addEventListener('click', elementDelete);
+function createCard (name, link) {
+  elementsItem.prepend(addCard(name, link));//все передал на отрисовку вместе с данными
 }
-//само удаление
+
+
+
+
+//12 реализация удаления карточки
 function elementDelete(event) {
   event.target.closest(".elements__item-list").remove();//найти элемент ближайщий и закрыть его
 }
-
-
-const cardElement = document.querySelector('.card');
-const cardCloseButtonElement = cardElement.querySelector(".card__close");
-const profileOpenCardButton = document.querySelector(".profile__button-add-site");
-let siteCard = document.querySelector("#card-input-site");
-let siteElements = document.querySelector(".elements__cut-text");
-let srcCard = document.querySelector("#card-input-src");
-let srcElements = document.querySelector(".elements__image");
-
-const openCard = function () {
-  cardElement.classList.add("card_is-open");
-};
-
-const closeCard = function () {
-  cardElement.classList.remove("card_is-open");
-};
-
-const cardSaveBotton = cardElement.querySelector(".card__content"); //сохранить и отправить форму позже
-// const cardSaveBotton = cardElement.querySelector(".card__save");
-
-
-profileOpenCardButton.addEventListener("click", openCard);
-cardCloseButtonElement.addEventListener("click", closeCard);
-
-
-//Вставить КАРД
-
-
-
-cardSaveBotton.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
-// cardSaveBotton.addEventListener("click", hendleSubmit); 
-
-
-
-
-
-
-function hendleSubmit (evt)  {
-  evt.preventDefault();
-
-  const siteValue = siteCard.value;
-  const srcValue = srcCard.value;
-
-  //1. Взять строку из инпута
-  //2. Взять ссылку из инпута
-  //. Отрисовать
-
-  addCard(siteValue, srcValue); //(siteValue, 
-  closeCard();
-}
-
-const sizeElement  = document.querySelector(".size");
-const sizeCloseButtonElement = sizeElement.querySelector(".size__close");
-// const sizeOpenCardButton = document.querySelector("#image-element");
-
-
-
-
-let sizeText = null;//создаю переменную для перезаписи текста карточка - большая карточка
-const sizeElementText = sizeElement.querySelector("#size-txt-element");//ищу расположение текста в большом ПОПАПе.
-let sizeImg = null;
-const sizeElementImg = sizeElement.querySelector("#size-image-element");
-
-
-
-const openSize = function (eve) { //передаю эвент и открываю большую карточку
-  sizeElement.classList.add("size__open"); //делаю видимой большую карточку
-  sizeText = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-  sizeImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-  const text = sizeText.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
-  const img = sizeImg.querySelector("#image-element").src;
-  sizeElementText.innerText = text; //вставляю текст в ПОПАП. 
-  sizeElementImg.src = img; 
-};
-
-
-
-const sizeClose = function () {
-  sizeElement.classList.remove('size__open');
-}
-
-sizeCloseButtonElement.addEventListener('click', sizeClose);
-
-
 renderCard();//в самый конец - она все и запускает автоматом.
 
 
@@ -220,24 +191,3 @@ renderCard();//в самый конец - она все и запускает а
 
 
 
-
-// let textElement = document.querySelector(".elements__cut-text"); 
-
-
-
-///////////////////////////////////////////////////////
-// let WWWWWWWsizeText = sizeElement.querySelector("#size-txt-element");
-
-// function openSize(eve) {
-  
-//   sizeText = eve.target.closest(".elements__item-list");
-//   const text = sizeText.querySelector(".elements__cut-text").textContent;
-//   WWWWWWWsizeText.value = text;
-//   openSize2();
-
-// };
-
-// const openSize2 = function () {
-//   sizeElement.classList.add("size__open");
-  
-// };
