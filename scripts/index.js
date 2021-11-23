@@ -43,7 +43,7 @@ const popupNewCardClose = popupCard.querySelector('.popup__close');
 const popupImageClose = popupImage.querySelector('.popup__close');
 
 //5 ищем темплейт
-const itemTemplate = document.querySelector('.item_template'); //ищем саму форму - шаблон для новых карточек.
+const itemTemplate = document.querySelector('#card-template'); //ищем саму форму - шаблон для новых карточек.
 const elementsItem = document.querySelector(".elements__item"); //!!!! Ищем куда вставим ТЕМПЛ!!!
 
 //6 функция закрытия и закрытия
@@ -81,10 +81,10 @@ popupImageClose.addEventListener('click', function () {
 
 //8.1 заполнение карточки Профиля
 //8.1.1. находим все поля из карточки профиля
-let nameProfile = document.querySelector(".profile__name");
-let namePopup = document.querySelector("#popup-input-name");
-let professionProfile = document.querySelector(".profile__profession");
-let professionPopup = document.querySelector("#popup-input-profession");
+const nameProfile = document.querySelector(".profile__name");
+const namePopup = document.querySelector("#popup-input-name");
+const professionProfile = document.querySelector(".profile__profession");
+const professionPopup = document.querySelector("#popup-input-profession");
 //8.1.2 добавляет значение в попап Профиль
 function formProfile () {
   namePopup.value = nameProfile.textContent;
@@ -104,11 +104,11 @@ popupSaveForm.addEventListener("submit", formSubmitHandler);
 //9 заполнить содержимое места в карточку
 //9.1 найти элементы для работы:
 //9.1.1 найти элементы на открытой карточке
-let siteCard = document.querySelector("#popup-card-input-site");
-let srcCard = document.querySelector("#popup-card-input-src");
+const siteCard = document.querySelector("#popup-card-input-site");
+const srcCard = document.querySelector("#popup-card-input-src");
 //9.1.2 найти элементы на сайте
-let siteElements = document.querySelector(".elements__cut-text");
-let srcElements = document.querySelector(".elements__image");
+const siteElements = document.querySelector(".elements__cut-text");
+const srcElements = document.querySelector(".elements__image");
 //9.2 ищем ЭЛЕМЕН для сабмита
 const cardSaveForm = popupCard.querySelector(".popup__content"); 
 //9.2.1 вешаем сабмит на форму
@@ -137,9 +137,9 @@ function addCard(name, link) {
 	const htmlElement = itemTemplate.content.cloneNode(true);
 	htmlElement.querySelector('.elements__cut-text').innerText = name; 
   //11.2. Заменять в разметке текст
-  htmlElement.querySelector('#image-element').src = link;
+  htmlElement.querySelector('.elements__image').src = link;
   //11.2.1 добавить ALT
-  htmlElement.querySelector('#image-element').alt = name;
+  htmlElement.querySelector('.elements__image').alt = name;
 	//11.3 организация лайка
   htmlElement.querySelector(".elements__hart").addEventListener('click', function(evt) { 
   evt.target.classList.toggle("elements__hart_activ");
@@ -149,17 +149,17 @@ function addCard(name, link) {
   htmlElement.querySelector(".elements__dell").addEventListener('click', elementDelete);
 
   //11.5 организация открытия большой картинки
-  htmlElement.querySelector('#image-element').addEventListener('click', function (eve) {
+  htmlElement.querySelector('.elements__image').addEventListener('click', function (eve) {
     togglePopup(popupImage);
     //11.5.1 найти элементы в попапе
     const sizeElementText = popupImage.querySelector("#size-txt-element");
     const sizeElementImg = popupImage.querySelector("#size-image-element");
     //11.5.2 находим элементы на сайте    
-    let sizeText = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-    let sizeImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+    const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+    //const sizeImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
     //11.5.3 получаю нужные значения из полей
-    const text = sizeText.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
-    const img = sizeImg.querySelector("#image-element").src;
+    const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
+    const img = sizeTextImg.querySelector(".elements__image").src;
     //11.5.4 подставляю нужные значения из полей
     sizeElementText.innerText = text; //вставляю текст в ПОПАП. 
     sizeElementImg.src = img;
@@ -186,8 +186,4 @@ function elementDelete(event) {
 createCard();//в самый конец - она все и запускает автоматом.                                          
 
 
-
-
-
-
-
+id="image-element" 
