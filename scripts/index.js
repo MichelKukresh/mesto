@@ -118,20 +118,20 @@ function hendleSubmit (evt)  {
   evt.preventDefault();
   const siteValue = siteCard.value; //1.Взять строку из инпута
   const srcValue = srcCard.value; //2. Взять ссылку из инпута
-  createCard(siteValue, srcValue); //3 передать значение и отрисовать
+  renderCard(siteValue, srcValue); //3 передать значение и отрисовать                                 
   togglePopup(popupCard);//закрыть карточку
   siteCard.value = "";//очистить поле
   srcCard.value = "";//очистить поле
 }
 
-// 10 функция отрисовки всех карт перебираем массив
-function renderCard() {
+// 10 перебор карт из массива
+function createCard() {                                                                         
   initialCards.forEach((item) => {
-    createCard(item.name, item.link);//.name, item.link);
+    renderCard(item.name, item.link);//.name, item.link);                                     
   });
 }
 
-// 11 функция добавления карт
+// 11 создание HTML элемента
 function addCard(name, link) {
   //11.1. Создавать разметку		
 	const htmlElement = itemTemplate.content.cloneNode(true);
@@ -171,19 +171,19 @@ function addCard(name, link) {
 	// elementsItem.prepend(htmlElement);//все передал на отрисовку вместе с данными
 }
 
-function createCard (name, link) {
+// 12 добавление только одной карточки (из массива или по кнопке нажатия)
+function renderCard (name, link) {                                                                
   elementsItem.prepend(addCard(name, link));//все передал на отрисовку вместе с данными
 }
 
 
 
 
-//12 реализация удаления карточки
+//13 реализация удаления карточки
 function elementDelete(event) {
   event.target.closest(".elements__item-list").remove();//найти элемент ближайщий и закрыть его
 }
-renderCard();//в самый конец - она все и запускает автоматом.
-
+createCard();//в самый конец - она все и запускает автоматом.                                          
 
 
 
