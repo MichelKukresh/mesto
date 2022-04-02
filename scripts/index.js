@@ -103,7 +103,7 @@ popupSaveForm.addEventListener("submit", formSubmitHandler);
 
 //9 заполнить содержимое места в карточку
 //9.1 найти элементы для работы:
-//9.1.1 найти элементы на открытой карточке
+//9.1.1 найти элементы на открытой карточки
 const siteCard = document.querySelector("#popup-card-input-site");
 const srcCard = document.querySelector("#popup-card-input-src");
 //9.1.2 найти элементы на сайте
@@ -115,7 +115,7 @@ const cardSaveForm = popupCard.querySelector(".popup__content");
 cardSaveForm.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
 //9.3 вносим данные в форму
 function hendleSubmit (evt)  {
-  evt.preventDefault();
+  //evt.preventDefault();///////////---------------<<<<<<<<<______________-----------------<<< включи
   const siteValue = siteCard.value; //1.Взять строку из инпута
   const srcValue = srcCard.value; //2. Взять ссылку из инпута
   renderCard(siteValue, srcValue); //3 передать значение и отрисовать                                 
@@ -186,4 +186,4 @@ function elementDelete(event) {
 createCard();//в самый конец - она все и запускает автоматом.                                          
 
 
-id="image-element" 
+//id="image-element" 
