@@ -1,11 +1,11 @@
-function enableValidation() {
-    const form = document.querySelector('.popup__content[name="popup-content"]');//находим первый попап
+function enableValidation(config) {
+    const form = document.querySelector(config.formSelector);//находим первый попап
     form.addEventListener('submit', handleFormSubmit); //слушатель на отправку формы
-    form.addEventListener('input', handleFormInput);  // слушатель на ввод каждого символа, что бы сразу проверять
+    form.addEventListener('input', (event) => handleFormInput(event, config));  // слушатель на ввод каждого символа, что бы сразу проверять
 
-    const form2 = document.querySelector('.popup__content[name="popup-card-content"]');
-    form2.addEventListener('submit', handleFormSubmit)
-    form2.addEventListener('input', handleFormInput)
+    // const form2 = document.querySelector('.popup__content[name="popup-card-content"]');
+    // form2.addEventListener('submit', handleFormSubmit)
+    // form2.addEventListener('input', handleFormInput)
 }
 //создаем валидацию форм
 function handleFormSubmit(event) {
@@ -15,14 +15,9 @@ function handleFormSubmit(event) {
     const isValid = form.checkValidity(); //проверка валидности формы
     console.log(isValid);
 
-    // if (isValid) { //сама проверка на валидность
-    //     alert("valid");
-    // } else {
-    //     alert("no valid");
-    // }
 }
 //создаем валидацию ИНПУТОВ
-function handleFormInput(event) {
+function handleFormInput(event, config) {
     const form = event.currentTarget;//получаем форму када повешено событие
     const input = event.target;//получаем поле где произошло событие
 
@@ -31,7 +26,7 @@ function handleFormInput(event) {
     //2. Показать ошибки пользователям
     setFieldError(input);
     //3. Деактивировать кнопку
-    setSubmitButtomState(form);
+    setSubmitButtomState(form, config);
 }
 
 function setCustomError(input) {//проверка поля на ошибку
@@ -47,7 +42,7 @@ function setCustomError(input) {//проверка поля на ошибку
 
     }
 
-    if(input.typeMismatch) { //определяет соответсвие типа поля ввода ссылка.урл.текст.
+    if(validity.typeMismatch) { //определяет соответсвие типа поля ввода ссылка.урл.текст.
         input.setCustomValidity("Это не ссылка");
     }
 }
@@ -58,28 +53,45 @@ function setFieldError(input) {
 
 }
 
-function setSubmitButtomState(form) {
+//работа с кнопкой
+function setSubmitButtomState(form, config) {
     const button = form.querySelector(".popup__save");
     const isValid = form.checkValidity();
 
-    console.log("Посмотрим состояние" + isValid);
-
     if(isValid) {
-        button.classList.add("popup__save_valid");
-        button.classList.remove("popup__save_invalid");
+        button.classList.add(config.buttonValid);
+        button.classList.remove(config.buttonInValid);
         button.removeAttribute("disabled");
-        console.log("Добавил" + button);
 
     } else {        
-        button.classList.add("popup__save_invalid");
-        button.classList.remove("popup__save_valid");
+        button.classList.add(config.buttonInValid);
+        button.classList.remove(config.buttonValid);
         button.setAttribute("disabled", "disabled");//должен быть 2й параметр
-        console.log("Удалил" + button);
-
+        
     }
 
     
 
 }
 
-enableValidation(); //эта функция все и запускает
+//эта функция все и запускает
+enableValidation({ 
+    formSelector: '.popup__content[name="popup-content"]',
+    buttonValid: "popup__save_valid",
+    buttonInValid: "popup__save_invalid",
+}); 
+
+enableValidation({ 
+    formSelector: '.popup__content[name="popup-card-content"]',
+    buttonValid: "popup__save_valid",
+    buttonInValid: "popup__save_invalid",
+}); 
+
+// enableValidation({
+//     --formSelector: '.popup__form',
+//     inputSelector: '.popup__input',
+//     submitButtonSelector: '.popup__button',
+//     inactiveButtonClass: 'popup__button_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__error_visible'
+//   }); 

@@ -46,9 +46,37 @@ const popupImageClose = popupImage.querySelector('.popup__close');
 const itemTemplate = document.querySelector('#card-template'); //ищем саму форму - шаблон для новых карточек.
 const elementsItem = document.querySelector(".elements__item"); //!!!! Ищем куда вставим ТЕМПЛ!!!
 
+/// 5.4 к проектной 6 работе закрывает любой попап
+const closePopupByClickOverlay = function(event, popup) {
+  if(event.target === event.currentTarget) {
+    togglePopup(popup);
+  };
+}
+
+//реализация снятия слушателя Эскейп
+
+const handleEscUp = function (event, popup) {
+  if (event.keyCode === 27) {
+    togglePopup(popup);
+    document.removeEventListener('keydown', (event) => handleEscUp(event, popup));
+  };
+}
+
+// 5.5. к 6 работе вешаем слушатель на открывшийся попап, !!! прокидываем данные
+const popupOverlay = function (popup) {
+  popup.addEventListener('click', (event) => closePopupByClickOverlay(event, popup));
+}
+
+//реализация добавления слушателя Эскейп
+const popupEscape = function (popup) {
+  document.addEventListener('keydown', (event) => handleEscUp(event, popup));
+}
+
 //6 функция закрытия и закрытия
 const togglePopup = function (popup) {
   popup.classList.toggle("popup_is-open");
+  popupOverlay(popup);
+  popupEscape(popup);
 };
 
 //7 вешаем слушатели на открытие попапов
@@ -61,9 +89,6 @@ popupNewCardOpen.addEventListener('click', function () {
   togglePopup(popupCard);
 });
 
-// popupImageOpen.addEventListener('click', function () {
-//   togglePopup(popupImage);
-// });
 popupEditProfileClose.addEventListener('click', function () {
   togglePopup(popupProfile);
 });
@@ -75,9 +100,6 @@ popupNewCardClose.addEventListener('click', function () {
 popupImageClose.addEventListener('click', function () {
   togglePopup(popupImage);
 });
-
-
-
 
 //8.1 заполнение карточки Профиля
 //8.1.1. находим все поля из карточки профиля
@@ -96,6 +118,7 @@ function formSubmitHandler(evt) {
   nameProfile.textContent = namePopup.value;
   professionProfile.textContent = professionPopup.value;
   togglePopup(popupProfile);
+  //togglePopup(popupProfile);
 }
 //8.1.4 найти кнопку сабмит и отправить на сервер
 const popupSaveForm = popupProfile.querySelector(".popup__content");
@@ -176,14 +199,9 @@ function renderCard (name, link) {
   elementsItem.prepend(addCard(name, link));//все передал на отрисовку вместе с данными
 }
 
-
-
-
 //13 реализация удаления карточки
 function elementDelete(event) {
   event.target.closest(".elements__item-list").remove();//найти элемент ближайщий и закрыть его
 }
 createCard();//в самый конец - она все и запускает автоматом.                                          
 
-
-//id="image-element" 
