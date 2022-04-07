@@ -32,11 +32,7 @@ function handleFormInput(event, config) {
 function setCustomError(input) {
   //проверка поля на ошибку
   const validity = input.validity; //validity берем из библиотеки MD
-  input.setCustomValidity(""); //убираем ошибку после каждого ввода символа
-  if (validity.typeMismatch) {
-    //определяет соответсвие типа поля ввода ссылка.урл.текст.
-    input.setCustomValidity("Это не ссылка");
-  }
+  input.setCustomValidity(""); //убираем ошибку после каждого ввода символа  
 }
 
 function setFieldError(input) {
@@ -51,10 +47,8 @@ function setSubmitButtomState(form, config) {
 
   if (isValid) {
     button.classList.add(config.buttonValid);
-    button.classList.remove(config.buttonInValid);
     button.removeAttribute("disabled");
-  } else {
-    button.classList.add(config.buttonInValid);
+  } else {    
     button.classList.remove(config.buttonValid);
     button.setAttribute("disabled", "disabled"); //должен быть 2й параметр
   }
@@ -64,6 +58,5 @@ function setSubmitButtomState(form, config) {
 enableValidation({
   formSelector: ".popup__content",
   buttonValid: "popup__save_valid",
-  buttonInValid: "popup__save_invalid",
   submitButtonSelector: ".popup__save",
 });

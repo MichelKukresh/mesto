@@ -8,8 +8,12 @@
   line-height: 22px;
   text-align: center;
   color: #ffffff;
-  border: none;
-  margin-top: 21px;  
+  /*border: none;*/
+  margin-top: 21px;
+  border-radius: 2px;
+  border: 1px solid #000000;  
+  color: #000000;
+  opacity: 0.2;
 }
 
 @media (max-width: 540px) {

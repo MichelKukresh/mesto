@@ -49,5 +49,4 @@
 @import url("../blocks/popup/__image/popup__image.css");
 @import url("../blocks/popup/__title-image/popup__title-image.css");
 @import url("../blocks/popup/__error/popup__error.css");
-@import url("../blocks/popup/__save/_invalid/popup__save_invalid.css");
 @import url("../blocks/popup/__save/_valid/popup__save_valid.css");

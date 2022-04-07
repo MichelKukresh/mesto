@@ -62,10 +62,10 @@ formListByOverlay.forEach((formElement) => {
 });
 
 //реализация снятия слушателя Эскейп
-
-const doSomething = function (event, popup) {
+const hendleEsc = function (event, popup) {
+  const popupActive = document.querySelector(".popup_is-open");
   if (event.key === "Escape") {
-    closePopup(popup);
+    closePopup(popupActive);
   }
 };
 
@@ -78,19 +78,18 @@ const includingPopupOverlayOnForm = function (popup) {
 
 //реализация добавления слушателя Эскейп
 const includingPopupEscape = function (popup) {
-  document.addEventListener("keydown", (event) => doSomething(event, popup));
+  document.addEventListener("keydown", hendleEsc);
 };
 
 //функция открытия
 const openPopup = function (popup) {
   popup.classList.add("popup_is-open");
-  //includingPopupOverlayOnForm(popup);
   includingPopupEscape(popup);
 };
 //функция закрытия
 const closePopup = function (popup) {
   popup.classList.remove("popup_is-open");
-  document.removeEventListener("keydown", (event) => doSomething(event, popup));
+  document.removeEventListener("keydown", hendleEsc);
 };
 
 //7 вешаем слушатели на открытие попапов
@@ -152,18 +151,14 @@ const buttonByCardSaveForm = popupCard.querySelector(".popup__content");
 //9.2.1 вешаем сабмит на форму
 buttonByCardSaveForm.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
 //9.3 вносим данные в форму
-function hendleSubmit(evt) {
-  //evt.preventDefault();///////////---------------<<<<<<<<<______________-----------------<<< включи
+function hendleSubmit(evt) {  
   const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
   const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута
   renderCard(siteValue, srcValue); //3 передать значение и отрисовать
-  closePopup(popupCard); //закрыть карточку
-  // inputElementSiteCard.value = "";//чоистить поле
-  // inputElementSrcCard.value = "";//очистить поле
+  closePopup(popupCard); //закрыть карточку  
   buttonByCardSaveForm.reset();
   //реализована блокировка кнопки сохранить после закрытия
   const button = evt.target.querySelector(".popup__save");
-  button.classList.add("popup__save_invalid");
   button.classList.remove("popup__save_valid");
   button.setAttribute("disabled", "disabled"); //должен быть 2й параметр
 }
@@ -171,7 +166,7 @@ function hendleSubmit(evt) {
 // 10 перебор карт из массива
 function createCard() {
   initialCards.forEach((item) => {
-    renderCard(item.name, item.link); //.name, item.link);
+    renderCard(item.name, item.link);
   });
 }
 
@@ -206,7 +201,6 @@ function addCard(name, link) {
       const sizeElementImg = popupImage.querySelector("#size-image-element");
       //11.5.2 находим элементы на сайте
       const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-      //const sizeImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
       //11.5.3 получаю нужные значения из полей
       const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
       const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
@@ -215,7 +209,6 @@ function addCard(name, link) {
       sizeElementImg.src = getImgByForm;
       sizeElementImg.alt = text;
     });
-
   return htmlElement;
 }
 
@@ -228,4 +221,5 @@ function renderCard(name, link) {
 function elementDelete(event) {
   event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
 }
+
 createCard(); //в самый конец - она все и запускает автоматом.
