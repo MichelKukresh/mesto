@@ -76,15 +76,10 @@ const includingPopupOverlayOnForm = function (popup) {
   );
 };
 
-//реализация добавления слушателя Эскейп
-const includingPopupEscape = function (popup) {
-  document.addEventListener("keydown", hendleEsc);
-};
-
 //функция открытия
 const openPopup = function (popup) {
   popup.classList.add("popup_is-open");
-  includingPopupEscape(popup);
+  document.addEventListener("keydown", hendleEsc);
 };
 //функция закрытия
 const closePopup = function (popup) {
