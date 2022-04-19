@@ -1,3 +1,12 @@
+
+//0. Все импорты
+import { Card } from "./Card.js";
+
+
+
+
+
+
 //1.массив для 6ти карточек
 const initialCards = [
   {
@@ -217,4 +226,18 @@ function elementDelete(event) {
   event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
 }
 
+
 createCard(); //в самый конец - она все и запускает автоматом.
+
+
+initialCards.forEach((item) => {
+   // Создадим экземпляр карточки
+const card = new Card(item.name, item.link);
+// Создаём карточку и возвращаем наружу
+const cardClassElement = card.generateCard();
+// Добавляем в DOM и определяем куда вставить
+elementsItem.prepend(cardClassElement);
+
+});
+
+console.log("Получилось?");
