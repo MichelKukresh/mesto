@@ -14,9 +14,7 @@ class Card {
         .querySelector("#card-template") //ищет сам темпл
         .content
         .cloneNode(true);
-        //.querySelector(".elements__item") //вставится в элемент с этим классом
         
-
         // вернём DOM-элемент карточки
         return itemTemplate;
     }
@@ -26,6 +24,8 @@ class Card {
         // Так у других элементов появится доступ к ней.
         this._element = this._getTemplate();
 
+        this._setEventListeners();//привязываем слушатель, а что и как описано ниже
+
         this._element.querySelector(".elements__cut-text").textContent = this._name;
         //11.2. Заменять в разметке текст
         this._element.querySelector(".elements__image").src = this._link;
@@ -34,10 +34,21 @@ class Card {
 
         // Вернём элемент наружу
         return this._element;
-
-
     }
-    
+
+    //1.1 функционал обработки событий
+    _handleMessegeClick(evt) { //описываем что будем и где делать
+        //this._element.querySelector(".elements__hart").
+        
+        evt.target.classList.toggle("elements__hart_activ");
+    }
+    //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
+    _setEventListeners() { //навешиваем само событие
+        this._element.querySelector(".elements__hart").addEventListener('click', (evt) => {
+            this._handleMessegeClick(evt);
+        });
+    }
+
 
 }
 
