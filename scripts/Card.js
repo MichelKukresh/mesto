@@ -42,11 +42,24 @@ class Card {
         
         evt.target.classList.toggle("elements__hart_activ");
     }
+
+    //Реализация удаления
+    _elementDelete(event) {
+        event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+    }
+
     //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
     _setEventListeners() { //навешиваем само событие
         this._element.querySelector(".elements__hart").addEventListener('click', (evt) => {
             this._handleMessegeClick(evt);
         });
+
+        this._element.querySelector(".elements__dell").addEventListener('click', (event) => {
+            this._elementDelete(event);
+        })
+
+
+
     }
 
 
