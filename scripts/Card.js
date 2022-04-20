@@ -1,10 +1,13 @@
 
+import { openPopup } from "./index.js";
+
 class Card {
     // в конструкторе будут динамические данные,
     // для каждого экземпляра свои
-    constructor(name, link) {
+    constructor(name, link, openPopup) {
         this._name = name;
         this._link = link;
+        
     }
 
     // здесь выполним все необходимые операции, чтобы вернуть разметку
@@ -36,16 +39,32 @@ class Card {
         return this._element;
     }
 
-    //1.1 функционал обработки событий
-    _handleMessegeClick(evt) { //описываем что будем и где делать
-        //this._element.querySelector(".elements__hart").
-        
+    //реализайия лайка
+    _handleMessegeClick(evt) { //описываем что будем и где делать        
         evt.target.classList.toggle("elements__hart_activ");
     }
 
     //Реализация удаления
     _elementDelete(event) {
         event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+    }
+
+    //Раелизация открытия большой картинки - Зума
+    _handleZoom(eve) {
+        const popupImage = document.querySelector(".popup_type_image");
+        openPopup(popupImage);
+        //11.5.1 найти элементы в попапе
+        const sizeElementText = popupImage.querySelector("#size-txt-element");
+        const sizeElementImg = popupImage.querySelector("#size-image-element");
+        //11.5.2 находим элементы на сайте
+        const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+        //11.5.3 получаю нужные значения из полей
+        const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
+        const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
+        //11.5.4 подставляю нужные значения из полей
+        sizeElementText.textContent = text; //вставляю текст в ПОПАП.
+        sizeElementImg.src = getImgByForm;
+        sizeElementImg.alt = text;
     }
 
     //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
@@ -56,6 +75,10 @@ class Card {
 
         this._element.querySelector(".elements__dell").addEventListener('click', (event) => {
             this._elementDelete(event);
+        });
+
+        this._element.querySelector(".elements__image").addEventListener("click", (eve) => {
+            this._handleZoom(eve);
         })
 
 
@@ -66,16 +89,7 @@ class Card {
 }
 
 
-
-
-// Создайте класс Card, который создаёт карточку с текстом и ссылкой на изображение:
-// принимает в конструктор её данные и селектор её template-элемента;
-// содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий;
-// содержит приватные методы для каждого обработчика;
-// содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
-// Для каждой карточки создайте экземпляр класса Card.
-
-
 export {Card};
+
 
 

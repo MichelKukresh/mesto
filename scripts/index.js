@@ -3,7 +3,7 @@
 import { Card } from "./Card.js";
 
 
-
+export {openPopup};
 
 
 
@@ -43,7 +43,7 @@ const popupImage = document.querySelector(".popup_type_image");
 //3 все кнопки открытия
 const popupEditProfileOpen = document.querySelector(".profile__button-open");
 const popupNewCardOpen = document.querySelector(".profile__button-add-site");
-const popupImageOpen = document.querySelector(".elements__image");
+//const popupImageOpen = document.querySelector(".elements__image");
 
 //4 все кнопки закрытия
 const popupEditProfileClose = popupProfile.querySelector(".popup__close");
@@ -154,6 +154,8 @@ const srcElements = document.querySelector(".elements__image");
 const buttonByCardSaveForm = popupCard.querySelector(".popup__content");
 //9.2.1 вешаем сабмит на форму
 buttonByCardSaveForm.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
+
+
 //9.3 вносим данные в форму
 function hendleSubmit(evt) {  
   const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
@@ -175,69 +177,79 @@ function createCard() {
 }
 
 // 11 создание HTML элемента
-function addCard(name, link) {
-  //11.1. Создавать разметку
-  const htmlElement = itemTemplate.content.cloneNode(true);
-  htmlElement.querySelector(".elements__cut-text").textContent = name;
-  //11.2. Заменять в разметке текст
-  htmlElement.querySelector(".elements__image").src = link;
-  //11.2.1 добавить ALT
-  htmlElement.querySelector(".elements__image").alt = name;
-  //11.3 организация лайка
-  htmlElement
-    .querySelector(".elements__hart")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("elements__hart_activ");
-    });
+// function addCard(name, link) {
+//   //11.1. Создавать разметку
+//   const htmlElement = itemTemplate.content.cloneNode(true);
+//   htmlElement.querySelector(".elements__cut-text").textContent = name;
+//   //11.2. Заменять в разметке текст
+//   htmlElement.querySelector(".elements__image").src = link;
+//   //11.2.1 добавить ALT
+//   htmlElement.querySelector(".elements__image").alt = name;
+//   //11.3 организация лайка
+//   htmlElement
+//     .querySelector(".elements__hart")
+//     .addEventListener("click", function (evt) {
+//       evt.target.classList.toggle("elements__hart_activ");
+//     });
 
-  //11.4 ищем Удалить, вешаем слушатель => функция удаляет
-  htmlElement
-    .querySelector(".elements__dell")
-    .addEventListener("click", elementDelete);
+//   //11.4 ищем Удалить, вешаем слушатель => функция удаляет
+//   htmlElement
+//     .querySelector(".elements__dell")
+//     .addEventListener("click", elementDelete);
 
-  //11.5 организация открытия большой картинки
-  htmlElement
-    .querySelector(".elements__image")
-    .addEventListener("click", function (eve) {
-      openPopup(popupImage);
-      //11.5.1 найти элементы в попапе
-      const sizeElementText = popupImage.querySelector("#size-txt-element");
-      const sizeElementImg = popupImage.querySelector("#size-image-element");
-      //11.5.2 находим элементы на сайте
-      const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-      //11.5.3 получаю нужные значения из полей
-      const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
-      const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
-      //11.5.4 подставляю нужные значения из полей
-      sizeElementText.textContent = text; //вставляю текст в ПОПАП.
-      sizeElementImg.src = getImgByForm;
-      sizeElementImg.alt = text;
-    });
-  return htmlElement;
-}
+//   //11.5 организация открытия большой картинки
+//   // htmlElement
+//   //   .querySelector(".elements__image")
+//   //   .addEventListener("click", function (eve) {
+//   //     openPopup(popupImage);
+//   //     //11.5.1 найти элементы в попапе
+//   //     const sizeElementText = popupImage.querySelector("#size-txt-element");
+//   //     const sizeElementImg = popupImage.querySelector("#size-image-element");
+//   //     //11.5.2 находим элементы на сайте
+//   //     const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+//   //     //11.5.3 получаю нужные значения из полей
+//   //     const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
+//   //     const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
+//   //     //11.5.4 подставляю нужные значения из полей
+//   //     sizeElementText.textContent = text; //вставляю текст в ПОПАП.
+//   //     sizeElementImg.src = getImgByForm;
+//   //     sizeElementImg.alt = text;
+//   //   });
+//   return htmlElement;
+// }
 
 // 12 добавление только одной карточки (из массива или по кнопке нажатия)
 function renderCard(name, link) {
-  elementsItem.prepend(addCard(name, link)); //все передал на отрисовку вместе с данными
-}
-
-//13 реализация удаления карточки
-function elementDelete(event) {
-  event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
-}
-
-
-createCard(); //в самый конец - она все и запускает автоматом.
-
-
-initialCards.forEach((item) => {
-   // Создадим экземпляр карточки
-const card = new Card(item.name, item.link);
+  const card = new Card(name, link, openPopup);
 // Создаём карточку и возвращаем наружу
 const cardClassElement = card.generateCard();
 // Добавляем в DOM и определяем куда вставить
 elementsItem.prepend(cardClassElement);
 
-});
 
-console.log("Получилось?");
+  //elementsItem.prepend(addCard(name, link)); //все передал на отрисовку вместе с данными
+}
+
+// //13 реализация удаления карточки
+// function elementDelete(event) {
+//    event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+//  }
+
+
+createCard(); //в самый конец - она все и запускает автоматом.
+
+
+// initialCards.forEach((item) => {
+//    // Создадим экземпляр карточки
+// const card = new Card(item.name, item.link, openPopup);
+// // Создаём карточку и возвращаем наружу
+// const cardClassElement = card.generateCard();
+// // Добавляем в DOM и определяем куда вставить
+// elementsItem.prepend(cardClassElement);
+
+// // ПРОБА БОЛЬШОЙ КАРТИНКИ
+
+
+// //ПРОБА
+// });
+
