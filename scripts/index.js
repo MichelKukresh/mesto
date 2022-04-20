@@ -1,13 +1,8 @@
-
 //0. Все импорты
 import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js"
+import { FormValidator } from "./FormValidator.js";
 
-
-
-export {openPopup};
-
-
+export { openPopup };
 
 //1.массив для 6ти карточек
 const initialCards = [
@@ -103,7 +98,6 @@ popupEditProfileOpen.addEventListener("click", function () {
   openPopup(popupProfile);
   setFormProfile();
   setFormValid(popupProfile);
-
 });
 
 popupNewCardOpen.addEventListener("click", function () {
@@ -152,21 +146,18 @@ popupSaveForm.addEventListener("submit", formSubmitHandlerProfile);
 //9.1.1 найти элементы на открытой карточки
 const inputElementSiteCard = document.querySelector("#popup-card-input-site");
 const inputElementSrcCard = document.querySelector("#popup-card-input-src");
-//9.1.2 найти элементы на сайте
-const siteElements = document.querySelector(".elements__cut-text");
-const srcElements = document.querySelector(".elements__image");
+
 //9.2 ищем ЭЛЕМЕН для сабмита
 const buttonByCardSaveForm = popupCard.querySelector(".popup__content");
 //9.2.1 вешаем сабмит на форму
 buttonByCardSaveForm.addEventListener("submit", hendleSubmit); //слушатель для КАРД СОХРАНИТЬ
 
-
 //9.3 вносим данные в форму
-function hendleSubmit(evt) {  
+function hendleSubmit(evt) {
   const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
   const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута
   renderCard(siteValue, srcValue); //3 передать значение и отрисовать
-  closePopup(popupCard); //закрыть карточку  
+  closePopup(popupCard); //закрыть карточку
   buttonByCardSaveForm.reset();
   //реализована блокировка кнопки сохранить после закрытия
   const button = evt.target.querySelector(".popup__save");
@@ -181,82 +172,16 @@ function createCard() {
   });
 }
 
-// 11 создание HTML элемента
-// function addCard(name, link) {
-//   //11.1. Создавать разметку
-//   const htmlElement = itemTemplate.content.cloneNode(true);
-//   htmlElement.querySelector(".elements__cut-text").textContent = name;
-//   //11.2. Заменять в разметке текст
-//   htmlElement.querySelector(".elements__image").src = link;
-//   //11.2.1 добавить ALT
-//   htmlElement.querySelector(".elements__image").alt = name;
-//   //11.3 организация лайка
-//   htmlElement
-//     .querySelector(".elements__hart")
-//     .addEventListener("click", function (evt) {
-//       evt.target.classList.toggle("elements__hart_activ");
-//     });
-
-//   //11.4 ищем Удалить, вешаем слушатель => функция удаляет
-//   htmlElement
-//     .querySelector(".elements__dell")
-//     .addEventListener("click", elementDelete);
-
-//   //11.5 организация открытия большой картинки
-//   // htmlElement
-//   //   .querySelector(".elements__image")
-//   //   .addEventListener("click", function (eve) {
-//   //     openPopup(popupImage);
-//   //     //11.5.1 найти элементы в попапе
-//   //     const sizeElementText = popupImage.querySelector("#size-txt-element");
-//   //     const sizeElementImg = popupImage.querySelector("#size-image-element");
-//   //     //11.5.2 находим элементы на сайте
-//   //     const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-//   //     //11.5.3 получаю нужные значения из полей
-//   //     const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
-//   //     const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
-//   //     //11.5.4 подставляю нужные значения из полей
-//   //     sizeElementText.textContent = text; //вставляю текст в ПОПАП.
-//   //     sizeElementImg.src = getImgByForm;
-//   //     sizeElementImg.alt = text;
-//   //   });
-//   return htmlElement;
-// }
-
 // 12 добавление только одной карточки (из массива или по кнопке нажатия)
 function renderCard(name, link) {
   const card = new Card(name, link, openPopup);
-// Создаём карточку и возвращаем наружу
-const cardClassElement = card.generateCard();
-// Добавляем в DOM и определяем куда вставить
-elementsItem.prepend(cardClassElement);
-
-
-  //elementsItem.prepend(addCard(name, link)); //все передал на отрисовку вместе с данными
+  // Создаём карточку и возвращаем наружу
+  const cardClassElement = card.generateCard();
+  // Добавляем в DOM и определяем куда вставить
+  elementsItem.prepend(cardClassElement);
 }
 
-// //13 реализация удаления карточки
-// function elementDelete(event) {
-//    event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
-//  }
-
-
 createCard(); //в самый конец - она все и запускает автоматом.
-
-
-// initialCards.forEach((item) => {
-//    // Создадим экземпляр карточки
-// const card = new Card(item.name, item.link, openPopup);
-// // Создаём карточку и возвращаем наружу
-// const cardClassElement = card.generateCard();
-// // Добавляем в DOM и определяем куда вставить
-// elementsItem.prepend(cardClassElement);
-
-// // ПРОБА БОЛЬШОЙ КАРТИНКИ
-
-
-// //ПРОБА
-// });
 
 function setFormValid(popup) {
   const configValidation = {
@@ -267,11 +192,4 @@ function setFormValid(popup) {
 
   const valid = new FormValidator(configValidation, popup);
   valid.enableValidation();
-
-};
-
-
-
-
-
-
+}
