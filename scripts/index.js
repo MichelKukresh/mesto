@@ -1,6 +1,8 @@
 
 //0. Все импорты
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js"
+
 
 
 export {openPopup};
@@ -100,10 +102,13 @@ const closePopup = function (popup) {
 popupEditProfileOpen.addEventListener("click", function () {
   openPopup(popupProfile);
   setFormProfile();
+  setFormValid(popupProfile);
+
 });
 
 popupNewCardOpen.addEventListener("click", function () {
   openPopup(popupCard);
+  setFormValid(popupCard);
 });
 
 popupEditProfileClose.addEventListener("click", function () {
@@ -252,4 +257,21 @@ createCard(); //в самый конец - она все и запускает �
 
 // //ПРОБА
 // });
+
+function setFormValid(popup) {
+  const configValidation = {
+    formSelector: ".popup__content",
+    buttonValid: "popup__save_valid",
+    submitButtonSelector: ".popup__save",
+  };
+
+  const valid = new FormValidator(configValidation, popup);
+  valid.enableValidation();
+
+};
+
+
+
+
+
 
