@@ -3,7 +3,7 @@ class FormValidator {
     this._formSelector = configValidation.formSelector;
     this._buttonValid = configValidation.buttonValid;
     this._submitButtonSelector = configValidation.submitButtonSelector;
-    this._popup = popup;
+    this._popup = popup.querySelector(this._formSelector);
   }
 
   enableValidation() {
@@ -19,20 +19,16 @@ class FormValidator {
     //2. Показать ошибки пользователям
     this._setFieldError(input);
     //3. Деактивировать кнопку
-    this._setSubmitButtomState(form);
+    this._toggleButtonState(form);
   };
 
   _setEventListeners() {
-    this._popup
-      .querySelector(this._formSelector)
-      .addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-    this._popup
-      .querySelector(this._formSelector)
-      .addEventListener("input", (event) => {
-        this._handleFormInput(event);
-      });
+    this._popup.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+    this._popup.addEventListener("input", (event) => {
+      this._handleFormInput(event);
+    });
   }
 
   _setCustomError(input) {
@@ -46,17 +42,25 @@ class FormValidator {
     span.textContent = input.validationMessage; // !! validationMassege сюда записывается из !!setCustomValidity
   }
 
+  toggleButtonStateOn = (button) => {
+    button.classList.add(this._buttonValid);
+    button.removeAttribute("disabled");
+  };
+
+  toggleButtonStateOff = (button) => {
+    button.classList.remove(this._buttonValid);
+    button.setAttribute("disabled", "disabled"); //должен быть 2й параметр
+  };
+
   //работа с кнопкой
-  _setSubmitButtomState = (form) => {
+  _toggleButtonState = (form) => {
     const button = form.querySelector(this._submitButtonSelector);
     const isValid = form.checkValidity();
 
     if (isValid) {
-      button.classList.add(this._buttonValid);
-      button.removeAttribute("disabled");
+      this.toggleButtonStateOn(button);
     } else {
-      button.classList.remove(this._buttonValid);
-      button.setAttribute("disabled", "disabled"); //должен быть 2й параметр
+      this.toggleButtonStateOff(button);
     }
   };
 }
