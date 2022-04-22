@@ -2,7 +2,8 @@ class FormValidator {
   constructor(configValidation, popup) {
     this._formSelector = configValidation.formSelector;
     this._buttonValid = configValidation.buttonValid;
-    this._submitButtonSelector = configValidation.submitButtonSelector;
+    //this._submitButtonSelector = configValidation.submitButtonSelector;
+    this._submitButton =  popup.querySelector(configValidation.submitButtonSelector); 
     this._popup = popup.querySelector(this._formSelector);
   }
 
@@ -42,25 +43,25 @@ class FormValidator {
     span.textContent = input.validationMessage; // !! validationMassege сюда записывается из !!setCustomValidity
   }
 
-  toggleButtonStateOn = (button) => {
-    button.classList.add(this._buttonValid);
-    button.removeAttribute("disabled");
+  toggleButtonStateOn = () => {
+    this._submitButton.classList.add(this._buttonValid);
+    this._submitButton.removeAttribute("disabled");
   };
 
-  toggleButtonStateOff = (button) => {
-    button.classList.remove(this._buttonValid);
-    button.setAttribute("disabled", "disabled"); //должен быть 2й параметр
+  toggleButtonStateOff = () => {
+    this._submitButton.classList.remove(this._buttonValid);
+    this._submitButton.setAttribute("disabled", "disabled"); //должен быть 2й параметр
   };
 
   //работа с кнопкой
   _toggleButtonState = (form) => {
-    const button = form.querySelector(this._submitButtonSelector);
+    //const button = form.querySelector(this._submitButtonSelector);
     const isValid = form.checkValidity();
 
     if (isValid) {
-      this.toggleButtonStateOn(button);
+      this.toggleButtonStateOn();
     } else {
-      this.toggleButtonStateOff(button);
+      this.toggleButtonStateOff();
     }
   };
 }

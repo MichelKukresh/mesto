@@ -4,7 +4,7 @@ import { openPopup } from "./index.js";
 class Card {
     // в конструкторе будут динамические данные,
     // для каждого экземпляра свои
-    constructor(name, link, openPopup) {
+    constructor(name, link) {
         this._name = name;
         this._link = link;
         
