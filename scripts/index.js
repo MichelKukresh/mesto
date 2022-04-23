@@ -117,32 +117,33 @@ buttonByCardSaveForm.addEventListener("submit", handleAddCardFormSubmit); //сл
 //9.3 вносим данные в форму
 function handleAddCardFormSubmit(evt) {
   const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
-  const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута  
-  const card = new Card(siteValue, srcValue); //3 создаем объект
-  // Создаём карточку и возвращаем наружу
-  const cardClassElement = card.generateCard(); //3 вызываем свойство собрать карточку(слушатели, конструктор)
-  // Добавляем в DOM и определяем куда вставить
-  renderCard(cardClassElement); //3 передать значение и отрисовать
+  const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута
+  //123 Пример - от ревьюера
+  const card = renderCard(siteValue, srcValue);
+  includeCard(card);
   closePopup(popupCard); //закрыть карточку
   buttonByCardSaveForm.reset();
   //реализована блокировка кнопки сохранить после закрытия
-  const button = evt.target.querySelector(".popup__save");
   validPopupCard.toggleButtonStateOff(button);
 }
 
 // 10 перебор карт из массива
 function createCard() {
   initialCards.forEach((item) => {
-    const card = new Card(item.name, item.link);
-    // Создаём карточку и возвращаем наружу
-    const cardClassElement = card.generateCard();
-    // Добавляем в DOM и определяем куда вставить
-    renderCard(cardClassElement);
+    //123 Пример - от ревьюера
+    const card = renderCard(item.name, item.link);
+    includeCard(card);
   });
 }
 
+function renderCard(name, link) {
+  const card = new Card(name, link);
+  //123 Пример - от ревьюера
+  return card.generateCard();
+}
+
 // 12 добавление только одной карточки (из массива или по кнопке нажатия)
-function renderCard(cardClassElement) {
+function includeCard(cardClassElement) {
   elementsItem.prepend(cardClassElement);
 }
 
