@@ -124,7 +124,7 @@ function handleAddCardFormSubmit(evt) {
   closePopup(popupCard); //закрыть карточку
   buttonByCardSaveForm.reset();
   //реализована блокировка кнопки сохранить после закрытия
-  validPopupCard.toggleButtonStateOff(button);
+  validPopupCard.toggleButtonStateOff();
 }
 
 // 10 перебор карт из массива
