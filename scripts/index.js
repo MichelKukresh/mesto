@@ -2,6 +2,7 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 import { initialCards } from "./initialCards.js";
+import Section from "./Section.js";
 
 export { openPopup };
 
@@ -160,3 +161,20 @@ validPopupProfile.enableValidation();
 
 const validPopupCard = new FormValidator(configValidation, popupCard);
 validPopupCard.enableValidation();
+
+
+//8я отрисовка карточек из массива
+const selector = ".elements__item"; // --<< разберись с этим это параметр куда вставлять разметку
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item.name, item.link);
+      const cardElement = card.generateCard(); //от класса Card
+      cardList.setItem(cardElement); //от класса Section
+    },
+  },
+  selector
+);
+// запуск отрисовки карточек из массива
+cardList.renderItems();
