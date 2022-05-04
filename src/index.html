@@ -4,18 +4,18 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="pages/index.css"/>
+    <!--<link rel="stylesheet" href="pages/index.css"/>-->
     <title>Mesto</title>
   </head>
   <body class="page">
     <div class="page__container">
       <header class="header section page__header">
-        <img class="header__logo" src="images/logo.svg" alt="логотип"/>
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип"/>
       </header>
       <main class="content page__content">
         <section class="section profile content__section">
           <div class="profile__image-text-pen">
-            <img class="profile__image" src="images/custo.jpg" alt="аватар"/>
+            <img class="profile__image" src="<%=require('./images/custo.jpg')%>" alt="аватар"/>
             <div class="profile__text-pen">
               <div class="profile__text-pen-position">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -26,7 +26,7 @@
             </div>
           </div>
           <button class="profile__button-add-site" type="button">
-            <img src="images/krest.svg" alt="крестик"/>
+            <img src="<%=require('./images/krest.svg')%>" alt="крестик"/>
           </button>
         </section>
         <section class="section elements content__section">

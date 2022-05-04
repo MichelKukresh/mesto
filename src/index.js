@@ -9,7 +9,8 @@ import UserInfo from "./components/UserInfo.js";
 //все переменные 
 import {popupProfile, popupCard, popupImage, popupEditProfileOpen, popupNewCardOpen } from "./util/initialCards.js";
 import {namePopup, professionPopup, inputElementSiteCard, inputElementSrcCard} from "./util/initialCards.js";
-
+//импорт CSS --   >> для WEBPACK
+import "./pages/index.css"
 
 //создаем класс редактирования профиля
 const objectPopupProfil = new PopupWithForm(popupProfile, {
