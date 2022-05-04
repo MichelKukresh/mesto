@@ -1,12 +1,13 @@
 
-import { openPopup } from "./index.js";
+//import { openPopup } from "./index.js";
 
 class Card {
     // в конструкторе будут динамические данные,
     // для каждого экземпляра свои
-    constructor(name, link) {
+    constructor(name, link, handleCardClick) {
         this._name = name;
         this._link = link;
+        this._handleZoom = handleCardClick;
         
     }
 
@@ -50,22 +51,22 @@ class Card {
     }
 
     //Раелизация открытия большой картинки - Зума
-    _handleZoom(eve) {
-        const popupImage = document.querySelector(".popup_type_image");
-        openPopup(popupImage);
-        //11.5.1 найти элементы в попапе
-        const sizeElementText = popupImage.querySelector("#size-txt-element");
-        const sizeElementImg = popupImage.querySelector("#size-image-element");
-        //11.5.2 находим элементы на сайте
-        const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
-        //11.5.3 получаю нужные значения из полей
-        const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
-        const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
-        //11.5.4 подставляю нужные значения из полей
-        sizeElementText.textContent = text; //вставляю текст в ПОПАП.
-        sizeElementImg.src = getImgByForm;
-        sizeElementImg.alt = text;
-    }
+    // _handleZoom(eve) {
+    //     const popupImage = document.querySelector(".popup_type_image");
+    //     openPopup(popupImage);
+    //     //11.5.1 найти элементы в попапе
+    //     const sizeElementText = popupImage.querySelector("#size-txt-element");
+    //     const sizeElementImg = popupImage.querySelector("#size-image-element");
+    //     //11.5.2 находим элементы на сайте
+    //     const sizeTextImg = eve.target.closest(".elements__item-list"); //нахожу элемент по которому кликнул
+    //     //11.5.3 получаю нужные значения из полей
+    //     const text = sizeTextImg.querySelector(".elements__cut-text").textContent; //получаю нужное значение - текст мста
+    //     const getImgByForm = sizeTextImg.querySelector(".elements__image").src;
+    //     //11.5.4 подставляю нужные значения из полей
+    //     sizeElementText.textContent = text; //вставляю текст в ПОПАП.
+    //     sizeElementImg.src = getImgByForm;
+    //     sizeElementImg.alt = text;
+    // }
 
     //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
     _setEventListeners() { //навешиваем само событие
