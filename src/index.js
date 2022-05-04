@@ -1,20 +1,15 @@
 //0. Все импорты
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-import { initialCards } from "./initialCards.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import UserInfo from "./UserInfo.js";
+import { Card } from "./components/Card.js";
+import { FormValidator } from "./components/FormValidator.js";
+import { initialCards } from "./util/initialCards.js";
+import Section from "./components/Section.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import UserInfo from "./components/UserInfo.js";
+//все переменные 
+import {popupProfile, popupCard, popupImage, popupEditProfileOpen, popupNewCardOpen } from "./util/initialCards.js";
+import {namePopup, professionPopup, inputElementSiteCard, inputElementSrcCard} from "./util/initialCards.js";
 
-const popupProfile = document.querySelector(".popup_type_edit-profile");
-const popupCard = document.querySelector(".popup_type_new-card");
-const popupImage = document.querySelector(".popup_type_image");
-
-//3 все кнопки открытия
-const popupEditProfileOpen = document.querySelector(".profile__button-open");
-const popupNewCardOpen = document.querySelector(".profile__button-add-site");
-//const popupImageOpen = document.querySelector(".elements__image");
 
 //создаем класс редактирования профиля
 const objectPopupProfil = new PopupWithForm(popupProfile, {
@@ -32,7 +27,6 @@ const includeUserInfo = new UserInfo(".profile__name", ".profile__profession");
 //7 вешаем слушатели на открытие попапов
 popupEditProfileOpen.addEventListener("click", function () {
   objectPopupProfil.open();
-
   //создаем функцию заполния со страници в попап
   const eserUnfo = includeUserInfo.getUserInfo();
   setFormProfile(eserUnfo);
@@ -44,19 +38,12 @@ function setFormProfile(eserUnfo) {
   professionPopup.value = eserUnfo.professionProfile.textContent;
 }
 
-//const nameProfile = document.querySelector(".profile__name");
-const namePopup = document.querySelector("#popup-input-name");
-//const professionProfile = document.querySelector(".profile__profession");
-const professionPopup = document.querySelector("#popup-input-profession");
-
 //создание карточки попапа добавления карточки
 const objectPopupCard = new PopupWithForm(popupCard, {
   handleFormSubmit: (evt) => {
     const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
     const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута
-
     renderCard(siteValue, srcValue);
-
     validPopupCard.toggleButtonStateOff();
   },
 });
@@ -73,10 +60,6 @@ function handleCardClick(eve) {
   objectpopupImage.open();
   objectpopupImage.setEventListeners();
 }
-
-//найти элементы на открытой карточки
-const inputElementSiteCard = document.querySelector("#popup-card-input-site");
-const inputElementSrcCard = document.querySelector("#popup-card-input-src");
 
 //данные валидации
 const configValidation = {
@@ -122,6 +105,5 @@ function renderCard(name, link) {
     },
     selector
   );
-
   renderOneCard.renderItems();
 }
