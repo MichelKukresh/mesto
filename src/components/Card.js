@@ -15,28 +15,24 @@ class Card {
     const itemTemplate = document
       .querySelector("#card-template") //ищет сам темпл
       .content.cloneNode(true);
-
     // вернём DOM-элемент карточки
-    return itemTemplate;
+    return itemTemplate.querySelector(".elements__item-list");
   }
 
   generateCard() {
     // Запишем разметку в приватное поле _element.
     // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
-
     this._setEventListeners(); //привязываем слушатель, а что и как описано ниже
-
     this._element.querySelector(".elements__cut-text").textContent = this._name;
     //11.2. Заменять в разметке текст
     this._element.querySelector(".elements__image").src = this._link;
     //11.2.1 добавить ALT
     this._element.querySelector(".elements__image").alt = this._name;
-
     // Вернём элемент наружу
     return this._element;
   }
-
+  
   //реализайия лайка
   _handleMessegeClick(evt) {
     //описываем что будем и где делать
@@ -44,8 +40,9 @@ class Card {
   }
 
   //Реализация удаления
-  _elementDelete(event) {
-    event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+  _elementDelete() {
+    //event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+    this._element.remove();
   }
 
   //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
@@ -59,14 +56,14 @@ class Card {
 
     this._element
       .querySelector(".elements__dell")
-      .addEventListener("click", (event) => {
-        this._elementDelete(event);
+      .addEventListener("click", () => {
+        this._elementDelete();
       });
 
     this._element
       .querySelector(".elements__image")
       .addEventListener("click", (eve) => {
-        this._handleZoom(eve);
+        this._handleZoom(this._name, this._link);
       });
   }
 }

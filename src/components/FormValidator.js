@@ -3,8 +3,9 @@ class FormValidator {
     this._formSelector = configValidation.formSelector;
     this._buttonValid = configValidation.buttonValid;
     //this._submitButtonSelector = configValidation.submitButtonSelector;
-    this._submitButton =  popup.querySelector(configValidation.submitButtonSelector); 
-    this._popup = popup.querySelector(this._formSelector);
+    this._popup = document.querySelector(popup);
+    this._submitButton =  this._popup.querySelector(configValidation.submitButtonSelector); 
+    this._popupContent = this._popup.querySelector(this._formSelector);
   }
 
   enableValidation() {
@@ -24,10 +25,10 @@ class FormValidator {
   };
 
   _setEventListeners() {
-    this._popup.addEventListener("submit", (evt) => {
+    this._popupContent.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    this._popup.addEventListener("input", (event) => {
+    this._popupContent.addEventListener("input", (event) => {
       this._handleFormInput(event);
     });
   }
@@ -64,6 +65,22 @@ class FormValidator {
       this.toggleButtonStateOff();
     }
   };
+  
+  //сброс ошибок при открытии формы
+  resetInputError() {
+    this._spanOnPopup = this._popup.querySelectorAll("span");
+    this._spanOnPopup.forEach((items) => items.textContent = "" );
+  }
+
 }
 
 export { FormValidator };
+
+// _getInputValues() {
+//   this._formValues = this._popup.querySelectorAll('input');
+//   this.arr = [];
+//   this.obj = {};    
+//   this._formValues.forEach((items) => this.arr.push(items.value));
+//   this.obj = {...this.arr}
+//   return this.obj;
+// }

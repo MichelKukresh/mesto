@@ -27,9 +27,14 @@ const initialCards = [
 ];
 
 //Находим все попапы
-const popupProfile = document.querySelector(".popup_type_edit-profile");
-const popupCard = document.querySelector(".popup_type_new-card");
-const popupImage = document.querySelector(".popup_type_image");
+// const popupProfile = document.querySelector(".popup_type_edit-profile");
+// const popupCard = document.querySelector(".popup_type_new-card");
+//const popupImage = document.querySelector(".popup_type_image");
+
+const popupProfile = ".popup_type_edit-profile";
+const popupCard = ".popup_type_new-card";
+const popupImage = ".popup_type_image";
+
 
 //3 все кнопки открытия, для большой картинки событие вешается отдельно при создании класса
 const popupEditProfileOpen = document.querySelector(".profile__button-open");
