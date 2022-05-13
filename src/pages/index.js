@@ -6,19 +6,27 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-//все переменные 
-import {popupProfile, popupCard, popupImage, popupEditProfileOpen, popupNewCardOpen } from "../util/initialCards.js";
-import {namePopup, professionPopup, inputElementSiteCard, inputElementSrcCard} from "../util/initialCards.js";
+//все переменные
+import {
+  popupProfile,
+  popupCard,
+  popupImage,
+  popupEditProfileOpen,
+  popupNewCardOpen,
+} from "../util/initialCards.js";
+import {
+  namePopup,
+  professionPopup,
+  inputElementSiteCard,
+  inputElementSrcCard,
+} from "../util/initialCards.js";
 //импорт CSS --   >> для WEBPACK
-import "./index.css"
+import "./index.css";
 
 //создаем класс редактирования профиля
 const objectPopupProfil = new PopupWithForm(popupProfile, {
   handleFormSubmit: (evt, formValues) => {
     evt.preventDefault();
-    //console.log(formValues);
-    //создаем возможность сохранения из попап на страницу
-    ////includeUserInfo.setUserInfo(namePopup, professionPopup);
     includeUserInfo.setUserInfo(formValues[0], formValues[1]);
   },
 });
@@ -42,24 +50,13 @@ function setFormProfile(eserUnfo) {
   professionPopup.value = eserUnfo.professionProfile.textContent;
 }
 
-
 //создание карточки попапа добавления карточки
 const objectPopupCard = new PopupWithForm(popupCard, {
   handleFormSubmit: (evt, formValues) => {
-    //console.log(formValues[0] + formValues[1]);
     const siteValue = formValues[0]; //1.Взять строку из инпута
     const srcValue = formValues[1]; //2. Взять ссылку из инпута
-    // const siteValue = inputElementSiteCard.value; //1.Взять строку из инпута
-    // const srcValue = inputElementSrcCard.value; //2. Взять ссылку из инпута
-    
-    
-    //renderCard(siteValue, srcValue);
-
-    const card = renderCard(siteValue, srcValue);        
-    renderOneCard.setItem(card);  //от класса Section
-
-
-
+    const card = renderCard(siteValue, srcValue);
+    renderOneCard.setItem(card); //от класса Section
     validPopupCard.toggleButtonStateOff();
   },
 });
@@ -74,7 +71,7 @@ popupNewCardOpen.addEventListener("click", function () {
 //открытие большого попапа
 const objectpopupImage = new PopupWithImage(popupImage);
 
-function handleCardClick(name, link) {  
+function handleCardClick(name, link) {
   objectpopupImage.open(name, link);
   objectpopupImage.setEventListeners();
 }
@@ -92,14 +89,11 @@ validPopupProfile.enableValidation();
 const validPopupCard = new FormValidator(configValidation, popupCard);
 validPopupCard.enableValidation();
 
-
 //функция для отрисовки карточки
 function renderCard(name, link) {
   const card = new Card(name, link, handleCardClick);
   return card.generateCard();
 }
-
-
 
 //8 отрисовка карточек из массива
 const selector = ".elements__item"; // --<< это параметр куда вставлять разметку
@@ -107,8 +101,8 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-        const card = renderCard(item.name, item.link);        
-        cardList.setItem(card); //от класса Section
+      const card = renderCard(item.name, item.link);
+      cardList.setItem(card); //от класса Section
     },
   },
   selector
@@ -117,43 +111,4 @@ const cardList = new Section(
 cardList.renderItems();
 
 //отрисовка 1й карточки
-  const renderOneCard = new Section( {},    
-    selector
-);
-
-// //8 отрисовка карточек из массива
-// const selector = ".elements__item"; // --<< это параметр куда вставлять разметку
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (item) => {
-//       const card = new Card(item.name, item.link, handleCardClick);
-//       const cardElement = card.generateCard(); //от класса Card
-//       cardList.setItem(cardElement); //от класса Section
-//     },
-//   },
-//   selector
-// );
-// // запуск отрисовки карточек из массива
-// cardList.renderItems();
-
-// //отрисовка 1й карточки
-// function renderCard(name, link) {
-//   const initialOneCards = [{ name: name, link: link }];
-
-//   const renderOneCard = new Section(
-//     {
-//       items: initialOneCards,
-//       renderer: (item) => {
-//         const oneCard = new Card(item.name, item.link, handleCardClick);
-//         const cardElementOne = oneCard.generateCard(); //от класса Card
-//         renderOneCard.setItem(cardElementOne); //от класса Section
-//       },
-//     },
-//     selector
-//   );
-//   renderOneCard.renderItems();
-// }
-
-//Это последняя
-//отмена
+const renderOneCard = new Section({}, selector);

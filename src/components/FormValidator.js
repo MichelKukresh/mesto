@@ -15,7 +15,6 @@ class FormValidator {
   _handleFormInput = (event) => {
     const form = event.currentTarget; //получаем форму када повешено событие
     const input = event.target; //получаем поле где произошло событие
-
     //1. Найти невалидные поля и установить текст ошибок
     this._setCustomError(input);
     //2. Показать ошибки пользователям
@@ -75,12 +74,3 @@ class FormValidator {
 }
 
 export { FormValidator };
-
-// _getInputValues() {
-//   this._formValues = this._popup.querySelectorAll('input');
-//   this.arr = [];
-//   this.obj = {};    
-//   this._formValues.forEach((items) => this.arr.push(items.value));
-//   this.obj = {...this.arr}
-//   return this.obj;
-// }

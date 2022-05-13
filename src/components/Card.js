@@ -1,4 +1,3 @@
-//import { openPopup } from "./index.js";
 
 class Card {
   // в конструкторе будут динамические данные,
@@ -40,8 +39,7 @@ class Card {
   }
 
   //Реализация удаления
-  _elementDelete() {
-    //event.target.closest(".elements__item-list").remove(); //найти элемент ближайщий и закрыть его
+  _elementDelete() {    
     this._element.remove();
   }
 
