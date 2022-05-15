@@ -7,21 +7,17 @@ export default class Popup {
   open() {
     //которые отвечают за открытие попапа.
     this._popup.classList.add("popup_is-open");
-    document.addEventListener(
-      "keydown",
-      (event) => {
-        this._handleEscClose(event);        
-      },
-      { once: true } // удаляет слушатель после одного срабатывания
-    );
+    document.addEventListener("keydown", this._handleEscClose);
+    
   }
 
   close() {
     //которые отвечают за закрытие попапа.
-    this._popup.classList.remove("popup_is-open");    
+    this._popup.classList.remove("popup_is-open"); 
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _handleEscClose(event) {
+  _handleEscClose = (event) => {
     //который содержит логику закрытия попапа клавишей Esc.
     if (event.key === "Escape") {
       this.close();
