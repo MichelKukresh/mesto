@@ -25,9 +25,8 @@ import "./index.css";
 
 //создаем класс редактирования профиля
 const objectPopupProfil = new PopupWithForm(popupProfile, {
-  handleFormSubmit: (evt, formValues) => {
-    evt.preventDefault();
-    includeUserInfo.setUserInfo(formValues[0], formValues[1]);
+  handleFormSubmit: ({name, profession}) => {    
+    includeUserInfo.setUserInfo(name, profession);
   },
 });
 
@@ -40,21 +39,21 @@ popupEditProfileOpen.addEventListener("click", function () {
   objectPopupProfil.open();
   validPopupProfile.resetInputError();
   //создаем функцию заполния со страници в попап
-  const eserUnfo = includeUserInfo.getUserInfo();
+  const eserUnfo = includeUserInfo.getUserInfo();  
   setFormProfile(eserUnfo);
 });
 
 //8.1.2 добавляет значение в попап Профиль
 function setFormProfile(eserUnfo) {
-  namePopup.value = eserUnfo.nameProfile.textContent;
-  professionPopup.value = eserUnfo.professionProfile.textContent;
+  namePopup.value = eserUnfo.nameProfile;
+  professionPopup.value = eserUnfo.professionProfile;
 }
 
 //создание карточки попапа добавления карточки
 const objectPopupCard = new PopupWithForm(popupCard, {
-  handleFormSubmit: (evt, formValues) => {
-    const siteValue = formValues[0]; //1.Взять строку из инпута
-    const srcValue = formValues[1]; //2. Взять ссылку из инпута
+  handleFormSubmit: ({name, link}) => {
+    const siteValue = name; //1.Взять строку из инпута
+    const srcValue = link; //2. Взять ссылку из инпута
     const card = renderCard(siteValue, srcValue);
     renderOneCard.setItem(card); //от класса Section
     validPopupCard.toggleButtonStateOff();

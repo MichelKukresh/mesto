@@ -43,9 +43,9 @@
           <button class="popup__close" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form class="popup__content" name="popup-content" novalidate>
-            <input name="text" class="popup__input" id="popup-input-name" placeholder="Имя" minlength="2" maxlength="40" type="text" required />
+            <input name="name" class="popup__input" id="popup-input-name" placeholder="Имя" minlength="2" maxlength="40" type="text" required />
             <span id="popup-input-name-error" class="popup__error"></span>
-            <input name="text" class="popup__input" id="popup-input-profession" placeholder="О себе" minlength="2" maxlength="200" type="text" required />
+            <input name="profession" class="popup__input" id="popup-input-profession" placeholder="О себе" minlength="2" maxlength="200" type="text" required />
             <span id="popup-input-profession-error" class="popup__error"></span>
             <button type="submit" class="popup__save" disabled>Сохранить</button>
           </form>
@@ -56,9 +56,9 @@
           <button class="popup__close" type="button"></button>
           <h2 class="popup__title">Новое место</h2>
           <form class="popup__content" name="popup-card-content" novalidate>
-            <input name="text" class="popup__input" placeholder="Название" id="popup-card-input-site" minlength="2" maxlength="30" type="text" required />
+            <input name="name" class="popup__input" placeholder="Название" id="popup-card-input-site" minlength="2" maxlength="30" type="text" required />
             <span id="popup-card-input-site-error" class="popup__error"></span>
-            <input name="text" class="popup__input" placeholder="Ссылка на название" id="popup-card-input-src" type="url" required />
+            <input name="link" class="popup__input" placeholder="Ссылка на название" id="popup-card-input-src" type="url" required />
             <span id="popup-card-input-src-error" class="popup__error"></span>
             <button type="submit" class="popup__save popup__save_invalid " disabled >Сохранить</button> 
           </form>

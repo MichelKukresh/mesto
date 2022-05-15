@@ -1,16 +1,16 @@
 export default class UserInfo {
   constructor(nameSelector, professionSelector) {
-    this._nameSelector = nameSelector;
+    //this._nameSelector = nameSelector;
     this._professionSelector = professionSelector;
-    this._namePopup = document.querySelector(this._nameSelector);
+    this._namePopup = document.querySelector(nameSelector);
     this._professionPopup = document.querySelector(this._professionSelector);
   }
 
   getUserInfo() {
     //данные пользователя нужно будет подставить в форму при открытии.    
     return {
-      nameProfile: this._namePopup,
-      professionProfile: this._professionPopup,
+      nameProfile: this._namePopup.textContent,
+      professionProfile: this._professionPopup.textContent,
     };
   }
 
