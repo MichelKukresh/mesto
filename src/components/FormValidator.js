@@ -55,9 +55,7 @@ class FormValidator {
 
   //работа с кнопкой
   _toggleButtonState = (form) => {
-    //const button = form.querySelector(this._submitButtonSelector);
     const isValid = form.checkValidity();
-
     if (isValid) {
       this.toggleButtonStateOn();
     } else {

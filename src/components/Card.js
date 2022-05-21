@@ -1,11 +1,28 @@
-
 class Card {
   // в конструкторе будут динамические данные,
   // для каждого экземпляра свои
-  constructor(name, link, handleCardClick) {
+  constructor(
+    name,
+    link,
+    likes,
+    owner,
+    _id,
+    api,
+    handleCardClick,
+    handleClickDelCard
+  ) {
     this._name = name;
     this._link = link;
+    this._likes = likes;
+    this._owner = owner;
+    this.__id = _id;
+    this._api = api;
     this._handleZoom = handleCardClick;
+    this._handleClickDelCard = handleClickDelCard;
+    this._likeStatus = {
+      status: false,
+      summ: 0,
+    };
   }
 
   // здесь выполним все необходимые операции, чтобы вернуть разметку
@@ -28,21 +45,67 @@ class Card {
     this._element.querySelector(".elements__image").src = this._link;
     //11.2.1 добавить ALT
     this._element.querySelector(".elements__image").alt = this._name;
+
+    //Добавлять корзинку удаления если я создал карточку
+    if (this._owner._id != "f03d1a7c9876ea4c7fb48341") {
+      this._element
+        .querySelector(".elements__dell")
+        .classList.add("elements__dell_none");
+    }
+
+    //вносит данные сколько лайков
+    this._element.querySelector(".elements__how-like").textContent =
+      this._likes.length;
+    //Проверить после перезагрузки есть ли мой лайк в списке
+    if (
+      this._likes.findIndex((item) => item._id == "f03d1a7c9876ea4c7fb48341") >=
+      0
+    ) {
+      console.log("Есть");
+      this._element
+        .querySelector(".elements__hart")
+        .classList.add("elements__hart_activ");
+      this._likeStatus.status = true;
+      this._likeStatus.summ = this._likes.length;
+    } else {
+      console.log("Нет");
+      this._likeStatus.summ = this._likes.length;
+    }
+
+    console.log(this._likeStatus);
+
     // Вернём элемент наружу
     return this._element;
   }
-  
+
   //реализайия лайка
   _handleMessegeClick(evt) {
     //описываем что будем и где делать
-    evt.target.classList.toggle("elements__hart_activ");
+    if (this._likeStatus.status == false) {
+      this._likeStatus.status = true;
+      this._api
+        .putLikeCard(this.__id)
+        .then(evt.target.classList.toggle("elements__hart_activ"));
+      this._likeStatus.summ++;
+      this._element.querySelector(".elements__how-like").textContent =
+        this._likeStatus.summ;
+    } else {
+      this._api
+        .deleteLikeCard(this.__id)
+        .then(evt.target.classList.toggle("elements__hart_activ"));
+      this._likeStatus.status = false;
+      this._likeStatus.summ--;
+      this._element.querySelector(".elements__how-like").textContent =
+        this._likeStatus.summ;
+    }
   }
 
   //Реализация удаления
-  _elementDelete() {    
-    this._element.remove();
-  }
+  _elementDelete() {
+    this._handleClickDelCard(this.__id, this._element);
 
+    console.log(this._handleClickDelCard(this.__id, this._element));
+  }
   //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
   _setEventListeners() {
     //навешиваем само событие

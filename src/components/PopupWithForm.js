@@ -18,10 +18,14 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._popupFormSubmit = this._popup.querySelector(".popup__content");
+    //для отображения данных об сохранении передаю попал в хендл
+    this._buttonInfomationAboutSave = this._popup.querySelector(".popup__save");
     this._popupFormSubmit.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit( this._getInputValues());
-      this.close();
+      
+      this._handleFormSubmit( this._getInputValues(), this._buttonInfomationAboutSave);
+      
+      //this.close();
     });
   }
 

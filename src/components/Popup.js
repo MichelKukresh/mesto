@@ -7,8 +7,7 @@ export default class Popup {
   open() {
     //которые отвечают за открытие попапа.
     this._popup.classList.add("popup_is-open");
-    document.addEventListener("keydown", this._handleEscClose);
-    
+    document.addEventListener("keydown", this._handleEscClose);    
   }
 
   close() {

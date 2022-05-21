@@ -23,6 +23,7 @@
 @import url("../blocks/profile/__image-text-pen/profile__image-text-pen.css");
 @import url("../blocks/profile/__text-pen-position/profile__text-pen-position.css");
 @import url('../blocks/profile/__button-open/profile__button-open.css');
+@import url("../blocks/profile/__change/profile__change.css");
 
 @import url("../blocks/elements/elements.css");
 @import url("../blocks/elements/__item/elements__item.css");
@@ -33,6 +34,8 @@
 @import url("../blocks/elements/__image/elements__image.css");
 @import url("../blocks/elements/__hart/_activ/elements__hart_activ.css");
 @import url("../blocks/elements/__dell/elements__dell.css");
+@import url("../blocks/elements/__how-like/elements__how-like.css");
+@import url("../blocks/elements/__dell/_none/elements__dell_none.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
