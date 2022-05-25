@@ -86,7 +86,6 @@ class Card {
         this._likeStatus.status,
         this._element
       );
-
       this._likeStatus.status = true;
 
       evt.target.classList.toggle("elements__hart_activ");
