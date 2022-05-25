@@ -8,8 +8,10 @@ class Card {
     owner,
     _id,
     api,
+    myId,
     handleCardClick,
-    handleClickDelCard
+    handleClickDelCard,
+    handleCardClickHeart
   ) {
     this._name = name;
     this._link = link;
@@ -18,10 +20,12 @@ class Card {
     this.__id = _id;
     this._api = api;
     this._handleZoom = handleCardClick;
+    this._myId = myId;
     this._handleClickDelCard = handleClickDelCard;
+    this._handleCardClickHeart = handleCardClickHeart;
     this._likeStatus = {
       status: false,
-      summ: 0,
+      //summ: 0,
     };
   }
 
@@ -33,6 +37,11 @@ class Card {
       .content.cloneNode(true);
     // вернём DOM-элемент карточки
     return itemTemplate.querySelector(".elements__item-list");
+  }
+
+  //установить количество лайков - онлайн, информация будет отражаться без перезагрузки страници
+  setTheNumberOfLikes(length) {
+    this._element.querySelector(".elements__how-like").textContent = length;
   }
 
   generateCard() {
@@ -47,32 +56,22 @@ class Card {
     this._element.querySelector(".elements__image").alt = this._name;
 
     //Добавлять корзинку удаления если я создал карточку
-    if (this._owner._id != "f03d1a7c9876ea4c7fb48341") {
+    if (this._owner._id != this._myId) {
       this._element
         .querySelector(".elements__dell")
         .classList.add("elements__dell_none");
     }
 
     //вносит данные сколько лайков
-    this._element.querySelector(".elements__how-like").textContent =
-      this._likes.length;
+    this.setTheNumberOfLikes(this._likes.length);
+
     //Проверить после перезагрузки есть ли мой лайк в списке
-    if (
-      this._likes.findIndex((item) => item._id == "f03d1a7c9876ea4c7fb48341") >=
-      0
-    ) {
-      console.log("Есть");
+    if (this._likes.findIndex((item) => item._id == this._myId) >= 0) {
       this._element
         .querySelector(".elements__hart")
         .classList.add("elements__hart_activ");
       this._likeStatus.status = true;
-      this._likeStatus.summ = this._likes.length;
-    } else {
-      console.log("Нет");
-      this._likeStatus.summ = this._likes.length;
     }
-
-    console.log(this._likeStatus);
 
     // Вернём элемент наружу
     return this._element;
@@ -82,29 +81,35 @@ class Card {
   _handleMessegeClick(evt) {
     //описываем что будем и где делать
     if (this._likeStatus.status == false) {
+      this._handleCardClickHeart(
+        this.__id,
+        this._likeStatus.status,
+        this._element
+      );
+
       this._likeStatus.status = true;
-      this._api
-        .putLikeCard(this.__id)
-        .then(evt.target.classList.toggle("elements__hart_activ"));
-      this._likeStatus.summ++;
-      this._element.querySelector(".elements__how-like").textContent =
-        this._likeStatus.summ;
+
+      evt.target.classList.toggle("elements__hart_activ");
     } else {
-      this._api
-        .deleteLikeCard(this.__id)
-        .then(evt.target.classList.toggle("elements__hart_activ"));
+      this._handleCardClickHeart(
+        this.__id,
+        this._likeStatus.status,
+        this._element
+      );
+
+      evt.target.classList.toggle("elements__hart_activ");
+
       this._likeStatus.status = false;
-      this._likeStatus.summ--;
-      this._element.querySelector(".elements__how-like").textContent =
-        this._likeStatus.summ;
     }
   }
 
-  //Реализация удаления
-  _elementDelete() {
-    this._handleClickDelCard(this.__id, this._element);
+  deleteCsrdOnSite(card) {
+    card.remove();
+  }
 
-    console.log(this._handleClickDelCard(this.__id, this._element));
+  //Реализация открытия согласия на удаление + открыть попал подтверждения
+  _elementDelete() {
+    this._handleClickDelCard(this.__id, this._element, this.deleteCsrdOnSite);
   }
   //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
   _setEventListeners() {

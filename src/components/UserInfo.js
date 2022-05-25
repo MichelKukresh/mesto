@@ -4,6 +4,7 @@ export default class UserInfo {
     this._professionSelector = professionSelector;
     this._namePopup = document.querySelector(nameSelector);
     this._professionPopup = document.querySelector(this._professionSelector);
+    this._avatar = document.querySelector(".profile__image");
   }
 
   getUserInfo() {
@@ -18,5 +19,18 @@ export default class UserInfo {
     //который принимает новые данные пользователя и добавляет их на страницу.
     this._namePopup.textContent = namePopup;
     this._professionPopup.textContent = professionPopup;
+    //this._avatar.src = avatar;
   }
+
+  setUserAvatar (avatar) {
+    this._avatar.src = avatar;
+  }
+
+
+
+
+
+
+
+
 }

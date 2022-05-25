@@ -1,7 +1,6 @@
 //0. Все импорты
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
-//import { initialCards } from "../util/initialCards.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -20,30 +19,33 @@ import {
 import {
   namePopup,
   professionPopup,
-  inputElementSiteCard,
-  inputElementSrcCard,
   popupSureDel,
   popupChanglAvatar,
+  myId,
 } from "../util/initialCards.js";
+
+//данные валидации
+import { configValidation } from "../util/initialCards.js";
+
 //импорт CSS --   >> для WEBPACK
 import "./index.css";
 
 //создаем класс редактирования профиля
 const objectPopupProfil = new PopupWithForm(popupProfile, {
   handleFormSubmit: ({ name, profession }, buttonInfomationAboutSave) => {
-    //из попапа вставляем на страницу
-    includeUserInfo.setUserInfo(name, profession);
     //из попапа отправляем на сервер
     const informAboutSave = api.patchUserInfoNameAbout(name, profession);
-    console.log(informAboutSave);
-    console.log(buttonInfomationAboutSave);
     buttonInfomationAboutSave.textContent = "Сохранение...";
     informAboutSave
+      .then(() => {
+        //из попапа вставляем на страницу
+        includeUserInfo.setUserInfo(name, profession);
+      })
       .then(() => objectPopupProfil.close())
-      .then(() => (buttonInfomationAboutSave.textContent = "Сохранить"))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-      });
+      })
+      .finally(() => (buttonInfomationAboutSave.textContent = "Сохранить"));
   },
 });
 
@@ -92,11 +94,10 @@ const objectPopupCard = new PopupWithForm(popupCard, {
         validPopupCard.toggleButtonStateOff();
       })
       .then(() => objectPopupCard.close())
-      .then(() => (buttonInfomationAboutSave.textContent = "Сохранить"))
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-      });
-
+      })
+      .finally(() => (buttonInfomationAboutSave.textContent = "Сохранить"));
   },
 });
 objectPopupCard.setEventListeners();
@@ -109,36 +110,60 @@ popupNewCardOpen.addEventListener("click", function () {
 
 //открытие большого попапа
 const objectpopupImage = new PopupWithImage(popupImage);
+objectpopupImage.setEventListeners();
 
 //передаем колбек клика для открытия большой карточки
 function handleCardClick(name, link) {
   objectpopupImage.open(name, link);
-  objectpopupImage.setEventListeners();
 }
 
-//создаем колбек клика для открытия попапа для подстверждения удаления
+//создаем колбек клика для открытия попапа для подтверждения удаления
 let dataSubmitElementOnDell;
 
-function handleClickDelCard(id, element) {
+function handleClickDelCard(id, element, deleteCsrdOnSite) {  
   objectpopupSureDel.open();
+  objectpopupSureDel.setSubmitAtion(deleteCsrdOnSite); //cпередача колбека из класса card
+
   return (dataSubmitElementOnDell = {
     id: id,
     element: element,
   });
 }
 
+//функция работы с лайками (данные при загрузке тут не отрабатываются)
+function handleCardClickHeart(idCard, status, element) {
+  if (this._likeStatus.status == false) {
+    api
+      .putLikeCard(idCard)
+      .then((res) => {
+        return res.likes.length;
+      })
+      .then((res) => {
+        element.querySelector(".elements__how-like").textContent = res;
+      });
+  } else {
+    api
+      .deleteLikeCard(idCard)
+      .then((res) => {
+        return res.likes.length;
+      })
+      .then((res) => {
+        element.querySelector(".elements__how-like").textContent = res;
+      });
+  }
+}
+
 //открытие попапа согласия удаления popupSureDel
 const objectpopupSureDel = new PopupWithForm(popupSureDel, {
-  handleFormSubmit: () => {
+  handleFormSubmit: (a, d, handleSubmitCallBack) => {
+    
     api
       .deleteCard(dataSubmitElementOnDell.id)
-      .then(() => dataSubmitElementOnDell.element.remove())
+      .then(() => handleSubmitCallBack(dataSubmitElementOnDell.element)) //для прокидывания функции из card
       .then(() => objectpopupSureDel.close())
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
-
-    console.log("Проверка работает?");
   },
 });
 objectpopupSureDel.setEventListeners();
@@ -156,28 +181,24 @@ const objectpopupChanglAvatar = new PopupWithForm(popupChanglAvatar, {
     buttonInfomationAboutSave.textContent = "Сохранение...";
 
     const srcValue = link;
-    apiUserInitial
+    api
       .patchAvatar(link)
-      .then(() => (document.querySelector(".profile__image").src = link))
-      .then(() => objectpopupChanglAvatar.close())
-      .then(() => (buttonInfomationAboutSave.textContent = "Сохранить"))
+      //.then(() => (document.querySelector(".profile__image").src = link))
+      .then(() => includeUserInfo.setUserAvatar(link))
+      .then(() => {
+        validPopupChanglAvatar.toggleButtonStateOff();
+
+        objectpopupChanglAvatar.close();
+      })
+
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
-      });
-
-    console.log(srcValue);
-
-    console.log("Проверка работает замена аватара?");
+      })
+      .finally(() => (buttonInfomationAboutSave.textContent = "Сохранить"));    
   },
 });
 objectpopupChanglAvatar.setEventListeners();
 
-//данные валидации
-const configValidation = {
-  formSelector: ".popup__content",
-  buttonValid: "popup__save_valid",
-  submitButtonSelector: ".popup__save",
-};
 //7 валидация
 const validPopupProfile = new FormValidator(configValidation, popupProfile);
 validPopupProfile.enableValidation();
@@ -195,6 +216,9 @@ const validPopupChanglAvatar = new FormValidator(
 );
 validPopupChanglAvatar.enableValidation();
 
+//создаем пустой объект для удаления
+const cardDell = new Card();
+
 //функция для отрисовки карточки
 function renderCard(name, link, likes, owner, _id, api) {
   const card = new Card(
@@ -204,9 +228,12 @@ function renderCard(name, link, likes, owner, _id, api) {
     owner,
     _id,
     api,
+    myId,
     handleCardClick,
-    handleClickDelCard
+    handleClickDelCard,
+    handleCardClickHeart //определяет есть ли мой лайк и убирает его или добавляет
   );
+
   return card.generateCard();
 }
 
@@ -217,39 +244,33 @@ const selector = ".elements__item"; // --<< это параметр куда в�
 const renderOneCard = new Section({}, selector);
 
 //api для загрузки данных о пользователе
-const apiUserInitial = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41/users/me",
-  headers: {
-    authorization: "06950c87-f349-452d-a6bd-e523931209ac",
-    "Content-Type": "application/json",
-  },
-});
-const userInfo = apiUserInitial.getInitialUser();
-
-//установка данных о пользователе на страницу + фото
-userInfo.then((data) => {
-  includeUserInfo.setUserInfo(data.name, data.about);
-  document.querySelector(".profile__image").src = data.avatar;
-});
-
-//api для загрузки всех карточек
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41/cards",
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-41/", //
   headers: {
     authorization: "06950c87-f349-452d-a6bd-e523931209ac",
     "Content-Type": "application/json",
   },
 });
 
-// загрузка карточек с сервера
-const initialCards = api.getInitialCards(); //записываем в константу результат, там промис
-initialCards
-  .then((data) => {
+Promise.all([
+  //в Promise.all передаем массив промисов которые нужно выполнить
+
+  api.getInitialUser(),
+
+  api.getInitialCards(),
+])
+  .then(([userInfo, initialCards]) => {
+    //установка данных о пользователе на страницу + фото
+    includeUserInfo.setUserInfo(userInfo.name, userInfo.about);
+    includeUserInfo.setUserAvatar(userInfo.avatar);
+
+    //собираем с сервера готовые карточки
     const cardList = new Section(
       {
-        items: data,
+        //items: data,
         renderer: (item) => {
           const card = renderCard(
+            //подготавливаю элемен из данных, устанавливаю слушатель
             item.name,
             item.link,
             item.likes,
@@ -257,14 +278,14 @@ initialCards
             item._id,
             api
           );
-          cardList.setItem(card); //от класса Section
+          cardList.setItem(card); //вставляю обработанные элементы карточек на сайт
         },
       },
       selector
     );
     // запуск отрисовки карточек из массива
-    cardList.renderItems();
+    cardList.renderItems(initialCards); //передаю напрямую массив с данными карточек
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
-  }); //так как это промис продолжаем ствавить ВЕН
+  }); //так как это промис продолжаем ствавить ВЕН;

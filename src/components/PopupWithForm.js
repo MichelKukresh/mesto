@@ -4,15 +4,22 @@ export default class PopupWithForm extends Popup {
   constructor(selectorPopup, { handleFormSubmit }) {
     //+нужно установить колбек сабмита формы
     super(selectorPopup);
-    //this._popup = selectorPopup;
+
     this._handleFormSubmit = handleFormSubmit;
   }
 
   _getInputValues() {
     this._formList = this._popup.querySelectorAll("input");
     this._formValues = {};
-    this._formList.forEach((input) => this._formValues[input.name] = input.value);    
+    this._formList.forEach(
+      (input) => (this._formValues[input.name] = input.value)
+    );
     return this._formValues;
+  }
+
+  setSubmitAtion(submitAction) {
+    //для прокидывания функции из card
+    this._handleSubmitCallBack = submitAction;
   }
 
   setEventListeners() {
@@ -22,10 +29,12 @@ export default class PopupWithForm extends Popup {
     this._buttonInfomationAboutSave = this._popup.querySelector(".popup__save");
     this._popupFormSubmit.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      
-      this._handleFormSubmit( this._getInputValues(), this._buttonInfomationAboutSave);
-      
-      //this.close();
+
+      this._handleFormSubmit(
+        this._getInputValues(),
+        this._buttonInfomationAboutSave,
+        this._handleSubmitCallBack
+      );
     });
   }
 
