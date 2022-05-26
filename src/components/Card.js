@@ -10,9 +10,10 @@ class Card {
     api,
     myId,
     handleCardClick,
-    handleClickDelCard,
-    handleCardClickHeart
+    handleCardClickHeart,
+    handleClickFormDel
   ) {
+    this._handleClickFormDel = handleClickFormDel;
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -21,11 +22,9 @@ class Card {
     this._api = api;
     this._handleZoom = handleCardClick;
     this._myId = myId;
-    this._handleClickDelCard = handleClickDelCard;
     this._handleCardClickHeart = handleCardClickHeart;
     this._likeStatus = {
       status: false,
-      //summ: 0,
     };
   }
 
@@ -54,7 +53,6 @@ class Card {
     this._element.querySelector(".elements__image").src = this._link;
     //11.2.1 добавить ALT
     this._element.querySelector(".elements__image").alt = this._name;
-
     //Добавлять корзинку удаления если я создал карточку
     if (this._owner._id != this._myId) {
       this._element
@@ -67,9 +65,7 @@ class Card {
 
     //Проверить после перезагрузки есть ли мой лайк в списке
     if (this._likes.findIndex((item) => item._id == this._myId) >= 0) {
-      this._element
-        .querySelector(".elements__hart")
-        .classList.add("elements__hart_activ");
+      this.setToggleHeat();
       this._likeStatus.status = true;
     }
 
@@ -77,39 +73,27 @@ class Card {
     return this._element;
   }
 
+  setToggleHeat() {
+    this._element
+      .querySelector(".elements__hart")
+      .classList.toggle("elements__hart_activ");
+  }
+
   //реализайия лайка
   _handleMessegeClick(evt) {
     //описываем что будем и где делать
-    if (this._likeStatus.status == false) {
-      this._handleCardClickHeart(
-        this.__id,
-        this._likeStatus.status,
-        this._element
-      );
-      this._likeStatus.status = true;
-
-      evt.target.classList.toggle("elements__hart_activ");
-    } else {
-      this._handleCardClickHeart(
-        this.__id,
-        this._likeStatus.status,
-        this._element
-      );
-
-      evt.target.classList.toggle("elements__hart_activ");
-
-      this._likeStatus.status = false;
-    }
+    this._handleCardClickHeart();
   }
 
-  deleteCsrdOnSite(card) {
-    card.remove();
+  deleteCsrdOnSite() {
+    this._element.remove();
   }
 
   //Реализация открытия согласия на удаление + открыть попал подтверждения
   _elementDelete() {
-    this._handleClickDelCard(this.__id, this._element, this.deleteCsrdOnSite);
+    this._handleClickFormDel();
   }
+
   //1.1 функционал обработки событий - метод добавления события на кнопку(нужен для добавления нескольких слушателей)
   _setEventListeners() {
     //навешиваем само событие
@@ -130,6 +114,11 @@ class Card {
       .addEventListener("click", (eve) => {
         this._handleZoom(this._name, this._link);
       });
+  }
+
+  //выше все работает
+  deleteCsrdOnSite() {
+    this._element.remove();
   }
 }
 

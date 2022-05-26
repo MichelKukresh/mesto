@@ -21,8 +21,6 @@ class Api {
   //!!!USER  получаем данные с сервера о пользователе
   getInitialUser() {
     return fetch(`${this._baseUrl}users/me`, {
-
-
       method: "GET",
       headers: this._headers,
     }).then((res) => {
@@ -97,8 +95,6 @@ class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
-
-
 
   putLikeCard(id) {
     return fetch(`${this._baseUrl}cards/likes/${id}`, {
